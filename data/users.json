@@ -1,0 +1,12 @@
+[
+    {
+        "email": "wojciech@sierakowski.eu",
+        "name": "Wojciech Sierakowski",
+        "password": "test"
+    },
+    {
+        "email": "martyna@martycud.com",
+        "name": "Martyna Cudak",
+        "password": "grzyb"
+    }
+]

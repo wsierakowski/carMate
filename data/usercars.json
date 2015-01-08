@@ -1,0 +1,18 @@
+[
+    {
+        "userEmail": "wojciech@sierakowski.eu",
+        "makeId": "VOLKS",
+        "modelId": "PASS",
+        "year": "1999",
+        "fuelType": "diesel",
+        "engineSize": "1.9"
+    },
+    {
+        "userEmail": "martyna@martycud.com",
+        "makeId": "VOLKS",
+        "modelId": "GOLF",
+        "year": "2004",
+        "fuelType": "petrol",
+        "engineSize": "1.4"
+    }
+]

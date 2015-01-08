@@ -1,0 +1,12 @@
+{
+	"general": {
+		"port": 8181
+	},
+	"db": {
+		"host": "localhost",
+		"port": 27017,
+		"database": "fuelConsumption",
+		"username": "root",
+		"password": "root"
+	}
+}

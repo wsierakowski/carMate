@@ -1,0 +1,17 @@
+{
+    "path": "/data",
+    "data": [
+        {
+            "model": "User",
+            "source": "users.json"
+        },
+        {
+            "model": "Car",
+            "source": "github.com.VinceG.Auto-Cars-Makes-And-Models.git.json"
+        },
+        {
+            "model": "FuelType",
+            "source": "fuelTypes.json"
+        }
+    ]
+}
