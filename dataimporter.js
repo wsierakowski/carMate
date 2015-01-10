@@ -94,6 +94,8 @@ function dropDB() {
 // 5. Popupulate DB by creating collections
 //    We do this in series as they need to be imported in order
 //    since they are in relations with each other.
+//    Actually this is not entirely true, there are no constrains in mongo
+//    like in the relational databases.
 function populateCollection() {
     async.eachSeries(modelDataMappings.data, function(dataMap, callback) {
         var model = dataMap.model;
@@ -101,10 +103,51 @@ function populateCollection() {
             return callback("-6- --Can't find model definition for: " + dataMap.model);
         }
         async.each(modelDatas[model], function(modelData, innerCallback) {
-            models[model].create(modelData, function(err, record) {
-                if (err) return innerCallback(err);
-                innerCallback(null);
-            });
+            if (dataMap.mappings) {
+                util.log('-6- -- -- Processing data import with mappings...');
+                var map = dataMap.mappings;
+                var filter = {};
+                filter[map.sourceSearchByField] = modelData[map.targetSearchByField];
+                models[map.sourceModel].find(
+                    filter,
+                    map.sourceField,
+                    function(err, data) {
+                        if (err) {
+                            util.log(
+                                'Failed when finding source field: ' +
+                                map.sourceSearchByField + ' in model: ' +
+                                map.sourceModel + '.'
+                            );
+                            return innerCallback(err);
+                        }
+                        if (!data) {
+                            var msg = 'Failed when finding source field: ' +
+                                map.sourceSearchByField + ' in model: ' +
+                                map.sourceModel + '.';
+                            util.log(msg);
+                            return innerCallback(msg);
+                        }
+                        util.log(
+                            '-6- -- -- Replacing ' + map.sourceSearchByField + ': ' +
+                            modelData[map.targetSearchByField] +
+                            ' with ' + map.targetField + ': ' + data + '.'
+                        );
+                        var nModelData = JSON.parse(JSON.stringify(modelData));
+                        delete nModelData[map.targetSearchByField];
+                        nModelData[map.targetField] = data;
+                        models[model].create(nModelData, function(err, record) {
+                            if (err) return innerCallback(err);
+                            innerCallback(null);
+                        });
+                    }
+                );
+            } else {
+                //util.log('-6- -- Processing data import without mappings...');
+                models[model].create(modelData, function(err, record) {
+                    if (err) return innerCallback(err);
+                    innerCallback(null);
+                });
+            }
         }, function(err) {
             if (err) {
                 return callback('-6- --' +

@@ -12,6 +12,17 @@
         {
             "model": "FuelType",
             "source": "fuelTypes.json"
+        },
+        {
+            "model": "UserCar",
+            "source": "usercars.json",
+            "mappings": {
+                "sourceModel": "User",
+                "sourceSearchByField": "email",
+                "sourceField": "_id",
+                "targetSearchByField": "userEmail",
+                "targetField": "userId"
+            }
         }
     ]
 }
