@@ -12,6 +12,8 @@ var userSchema = new Schema({
     password: {type: String, required: true}
 });
 
+//http://webcache.googleusercontent.com/search?q=cache:QhgWf8JImmAJ:devsmash.com/blog/implementing-max-login-attempts-with-mongoose+&cd=1&hl=en&ct=clnk&gl=pl
+//http://blog.mongodb.org/post/32866457221/password-authentication-with-mongoose-part-1
 userSchema.pre('save', function(next) {
 	var user = this;
 

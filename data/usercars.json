@@ -1,6 +1,7 @@
 [
     {
         "userEmail": "wojciech@sierakowski.eu",
+        "reg": "99W811",
         "makeId": "VOLKS",
         "modelId": "PASS",
         "year": "1999",
@@ -9,6 +10,7 @@
     },
     {
         "userEmail": "martyna@martycud.com",
+        "reg": "04ww3528",
         "makeId": "VOLKS",
         "modelId": "GOLF",
         "year": "2004",

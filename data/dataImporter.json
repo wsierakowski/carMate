@@ -23,6 +23,17 @@
                 "targetSearchByField": "userEmail",
                 "targetField": "userId"
             }
+        },
+        {
+            "model": "Consumption",
+            "source": "consumption.json",
+            "mappings": {
+                "sourceModel": "User",
+                "sourceSearchByField": "email",
+                "sourceField": "_id",
+                "targetSearchByField": "userEmail",
+                "targetField": "userId"
+            }
         }
     ]
 }

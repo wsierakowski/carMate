@@ -108,7 +108,7 @@ function populateCollection() {
                 var map = dataMap.mappings;
                 var filter = {};
                 filter[map.sourceSearchByField] = modelData[map.targetSearchByField];
-                models[map.sourceModel].find(
+                models[map.sourceModel].findOne(
                     filter,
                     map.sourceField,
                     function(err, data) {
