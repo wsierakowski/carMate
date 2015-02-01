@@ -35,6 +35,15 @@ mongoose.connection.on('open', function() {
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
 
 var app = express();
+
+app.set('views', './views');
+app.set('view engine', 'jade');
+app.engine('jade', require('jade').__express);
+
+if (app.get('env') === 'development') {
+  app.locals.pretty = true;
+}
+
 app.use(bodyParser());
 app.use(cookieParser('grzybniaZPatatajnia'));
 app.use(session());
@@ -52,6 +61,7 @@ app.get('/login', api.loginGet);
 app.post('/login', api.loginPost);
 app.get('/register', api.registerGet);
 app.post('/register', api.registerPost);
+app.get('/jade', api.jadeGet);
 
 var port = process.argv[2] || conf.general.port;
 http

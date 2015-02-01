@@ -125,3 +125,11 @@ exports.clearMessages = function(req, res) {
     req.session.regError = null;
     req.session.error = null;
 };
+
+exports.jadeGet = function(req, res) {
+    res.render('consumption', {
+        title: 'ConsumptionWebsite',
+        menuItems: ['Consumption', 'Car', 'User Account', 'Logout'],
+        curMenuItem: 'Car'
+    });
+};

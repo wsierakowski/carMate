@@ -1,0 +1,19 @@
+.navbar
+  .navbar-inner
+    .container
+      ul.nav
+        //- - var menuItems = ['Consumption', 'Car', 'User Account', 'Logout']
+        //- - var curMenuItem = 'Car'
+        //- for each (menuItem in menuItems)
+        each menuItem in menuItems
+          li(class={active: curMenuItem === menuItem})
+            a(href="#")= menuItem
+        //-
+          li(class={active: curMenu === 'Consumption'})
+            a(href="#") Consumption
+          li(class={active: curMenu === 'Car'})
+            a(href="#") Car
+          li(class={active: curMenu === 'User Account'})
+            a(href="#") User Account
+          li(class={active: curMenu === 'Logout'})
+            a(href="#") Logout
