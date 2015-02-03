@@ -5,13 +5,14 @@ html(lang="en")
     title= title
     //-link(rel='stylesheet', href='/stylesheets/style.css')
     //-<!-- Latest compiled and minified CSS -->
-    link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css")
+    //-link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css")
+    link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
     //-<!-- jQuery library -->
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
     //-<!-- Latest compiled JavaScript -->
-    script(src="http://maxcdn.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js")
+    script(src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js")
   body
-    div.container
-        h1= title
-        include navbar
+    .container
+        .page-header
+            h1= title
         block content

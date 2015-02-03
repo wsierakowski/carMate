@@ -133,3 +133,9 @@ exports.jadeGet = function(req, res) {
         curMenuItem: 'Car'
     });
 };
+
+exports.jadeLogin = function(req, res) {
+    res.render('login', {
+        title: 'ConsumptionWebsite'
+    });
+};

@@ -62,6 +62,7 @@ app.post('/login', api.loginPost);
 app.get('/register', api.registerGet);
 app.post('/register', api.registerPost);
 app.get('/jade', api.jadeGet);
+app.get('/jadeLogin', api.jadeLogin);
 
 var port = process.argv[2] || conf.general.port;
 http

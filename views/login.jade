@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h2 Log in:
+  form.form-horizontal(role="form")
+    .form-group
+      label.control-label.col-sm-2(for="email") Email:
+      .col-sm-10
+        input(type="email", class="form-control", id="email", placeholder="Enter email")
+    .form-group
+      label.control-label.col-sm-2(for="pwd") Password:
+      .col-sm-10
+        input(type="password", class="form-control", id="pwd", placeholder="Enter password")
+    button(type="submit" class="btn btn-default") Submit
