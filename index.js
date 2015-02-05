@@ -40,6 +40,8 @@ app.set('views', './views');
 app.set('view engine', 'jade');
 app.engine('jade', require('jade').__express);
 
+app.locals.title = "Your Best Car Mate";
+
 if (app.get('env') === 'development') {
   app.locals.pretty = true;
 }
@@ -61,8 +63,8 @@ app.get('/login', api.loginGet);
 app.post('/login', api.loginPost);
 app.get('/register', api.registerGet);
 app.post('/register', api.registerPost);
-app.get('/jade', api.jadeGet);
-app.get('/jadeLogin', api.jadeLogin);
+// app.get('/jade', api.jadeGet);
+// app.get('/jadeLogin', api.jadeLogin);
 
 var port = process.argv[2] || conf.general.port;
 http

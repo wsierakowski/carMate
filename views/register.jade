@@ -1,0 +1,44 @@
+extends layout
+
+block content
+  h2 Register:
+  form.form-horizontal(role="form", method="POST")
+    .form-group
+      label.control-label.col-sm-2(for="name") Name:
+      .col-sm-10
+        input(
+          type="text",
+          class="form-control",
+          id="name",
+          name="name",
+          placeholder="Enter name"
+        )
+    .form-group
+      label.control-label.col-sm-2(for="email") Email:
+      .col-sm-10
+        input(
+          type="email",
+          class="form-control",
+          id="email",
+          name="email",
+          placeholder="Enter email"
+        )
+        span(class="glyphicon glyphicon-asterisk form-control-feedback", aria-hidden="true")
+    .form-group
+      label.control-label.col-sm-2(for="pwd") Password:
+      .col-sm-10
+        input(
+          type="password",
+          class="form-control",
+          id="pwd",
+          name="password",
+          placeholder="Enter password"
+        )
+        span(class="glyphicon glyphicon-asterisk form-control-feedback", aria-hidden="true")
+    button(type="submit" class="btn btn-default") Register
+  if ses.regError
+    hr
+    .alert.alert-danger #{ses.regError}
+  if ses.msg
+    hr
+    .alert.alert-info #{ses.msg}

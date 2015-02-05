@@ -9,7 +9,7 @@
         //- for each (menuItem in menuItems)
         each menuItem in menuItems
           li(class={active: curMenuItem === menuItem})
-            a(href="#")= menuItem
+            a(href=menuItem.link)= menuItem.name
         //-
           li(class={active: curMenu === 'Consumption'})
             a(href="#") Consumption

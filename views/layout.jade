@@ -13,6 +13,8 @@ html(lang="en")
     script(src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js")
   body
     .container
-        .page-header
-            h1= title
+      .page-header
+        h1= title
+          if name
+            h6 Welcome #{name}
         block content
