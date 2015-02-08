@@ -58,9 +58,13 @@ app.use(function(req, res, next){
 
 app.get('/', api.home);
 app.get('/dashboard', api.dashboard);
+app.get('/consumption', api.consumption);
+
 app.get('/logout', api.logout);
+
 app.get('/login', api.loginGet);
 app.post('/login', api.loginPost);
+
 app.get('/register', api.registerGet);
 app.post('/register', api.registerPost);
 // app.get('/jade', api.jadeGet);

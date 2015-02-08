@@ -2,7 +2,8 @@
 
 var uval = require('../myutils/uvalidation.js'),
   ucrypto = require('../myutils/ucrypto.js'),
-  User = require('../models/user.js');
+  User = require('../models/user.js'),
+  navbar = require('./navbar.js');
 
 exports.home = function(req, res) {
   res.redirect('/login');
@@ -24,20 +25,19 @@ exports.dashboard = function(req, res) {
   if (req.session.user) {
     res.render('dashboard', {
       name: req.session.user.name,
-      menuItems: [{
-          name: 'Consumption',
-          link: '/consumption'
-        }, {
-          name: 'Car',
-          link: '/car'
-        }, {
-          name: 'User Account',
-          link: '/useraccount'
-        }, {
-          name: 'Logout',
-          link: '/logout'
-      }],
-      curMenuItem: 'Consumption'
+      menu: navbar()
+    });
+  } else {
+    req.session.error = 'Please log in.';
+    res.redirect('/login');
+  }
+};
+
+exports.consumption = function(req, res) {
+  if (req.session.user) {
+    res.render('consumption', {
+      name: req.session.user.name,
+      menu: navbar('Consumption')
     });
   } else {
     req.session.error = 'Please log in.';
@@ -52,6 +52,9 @@ exports.logout = function(req, res) {
 };
 
 exports.loginGet = function(req, res) {
+  if (req.session.user) {
+    return res.redirect('/dashboard');
+  }
   res.render("login", {
     ses:req.session
   });
@@ -86,6 +89,9 @@ exports.loginPost = function(req, res) {
 };
 
 exports.registerGet = function(req, res) {
+  if (req.session.user) {
+    return res.redirect('/dashboard');
+  }
   res.render('register', {ses: req.session});
 };
 

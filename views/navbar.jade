@@ -1,15 +1,15 @@
 .navbar.navbar-default
   .container-fluid
     .navbar-header
-      a.navbar-brand(href="#")= title
+     a.navbar-brand(href="/dashboard")= title
     div
       ul.nav.navbar-nav
         //- - var menuItems = ['Consumption', 'Car', 'User Account', 'Logout']
         //- - var curMenuItem = 'Car'
         //- for each (menuItem in menuItems)
-        each menuItem in menuItems
-          li(class={active: curMenuItem === menuItem})
-            a(href=menuItem.link)= menuItem.name
+        each item in menu.items
+          li(class={active: menu.curItem === item.name})
+            a(href=item.link)= item.name
         //-
           li(class={active: curMenu === 'Consumption'})
             a(href="#") Consumption

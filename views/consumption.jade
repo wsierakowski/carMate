@@ -2,5 +2,43 @@ extends layout
 
 block content
   include navbar
-  h3 This is Consumption Log
-  p This is some text
+  .row
+    .col-sm-2
+      h4 Select your car:
+      .list-group
+        a.list-group-item.active(href="#") VW Passat 1.9 Diesel 99
+        a.list-group-item(href="#") VW Golf 1.4 Petrol 04
+    .col-sm-10
+      h3 Fuel Consumption Log for:
+      p VW Passat 1.9 Diesel 99 99W811
+      .panel.panel-primary
+        .panel-heading
+          h3.panel-title Average Consumption
+        .panel-body 6.1km/h 5355mpg
+      table.table.table-striped
+        thead
+          tr
+            th Log Time
+            th km/L
+            th MPG
+            th Miles/kms
+            th Gallons/liters
+        tbody
+          tr
+            td 10/10/2014
+            td 7/100
+            td 34.32343
+            td 4342/432434
+            td 434/4344
+          tr
+            td 10/10/2014
+            td 7/100
+            td 34.32343
+            td 4342/432434
+            td 434/4344
+          tr
+            td 10/10/2014
+            td 7/100
+            td 34.32343
+            td 4342/432434
+            td 434/4344
