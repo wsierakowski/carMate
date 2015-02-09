@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
 	ObjectId = Schema.Types.ObjectId;
 
 var fuelTypeSchema = new Schema({
-	type: {type:String, index: 1, unique: true, required: true},
+	_id: {type:String, index: 1, unique: true, required: true},
 });
 
 module.exports = mongoose.model('FuelType', fuelTypeSchema);

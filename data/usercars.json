@@ -9,6 +9,15 @@
         "engineSize": "1.9"
     },
     {
+        "userEmail": "wojciech@sierakowski.eu",
+        "reg": "ZPLY1234",
+        "makeId": "VOLKS",
+        "modelId": "GOLF",
+        "year": "1993",
+        "fuelType": "petrol",
+        "engineSize": "1.8"
+    },
+    {
         "userEmail": "martyna@martycud.com",
         "reg": "04ww3528",
         "makeId": "VOLKS",

@@ -11,7 +11,11 @@
         },
         {
             "model": "FuelType",
-            "source": "fuelTypes.json"
+            "source": "fuelTypes.json",
+            "renameField": {
+                "sourceField": "type",
+                "targetField": "_id"
+            }
         },
         {
             "model": "UserCar",

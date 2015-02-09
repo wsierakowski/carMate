@@ -1,4 +1,5 @@
-var util = require('util'),
+var _ = require('underscore'),
+    util = require('util'),
 
     optimist = require('optimist'),
     args = optimist.argv,
@@ -135,6 +136,11 @@ function populateCollection() {
                         var nModelData = JSON.parse(JSON.stringify(modelData));
                         delete nModelData[map.targetSearchByField];
                         nModelData[map.targetField] = data;
+                        // TODO: DRY
+                        if (dataMap.renameField) {
+                            nModelData[dataMap.renameField.targetField] = nModelData[dataMap.renameField.sourceField];
+                            delete nModelData[dataMap.renameField.sourceField];
+                        }
                         models[model].create(nModelData, function(err, record) {
                             if (err) return innerCallback(err);
                             innerCallback(null);
@@ -143,6 +149,11 @@ function populateCollection() {
                 );
             } else {
                 //util.log('-6- -- Processing data import without mappings...');
+                // TODO: DRY
+                if (dataMap.renameField) {
+                    modelData[dataMap.renameField.targetField] = modelData[dataMap.renameField.sourceField];
+                    delete modelData[dataMap.renameField.sourceField];
+                }
                 models[model].create(modelData, function(err, record) {
                     if (err) return innerCallback(err);
                     innerCallback(null);

@@ -1,8 +1,14 @@
 //http://stackoverflow.com/questions/13412579/node-express-mongoose-sub-collection-document-insert
 
-var uval = require('../myutils/uvalidation.js'),
+var _ = require('underscore'),
+  uval = require('../myutils/uvalidation.js'),
   ucrypto = require('../myutils/ucrypto.js'),
+
   User = require('../models/user.js'),
+  UserCar = require('../models/usercar.js'),
+  Car = require('../models/car.js'),
+  FuelType = require('../models/fuelType.js'),
+
   navbar = require('./navbar.js');
 
 exports.home = function(req, res) {
@@ -33,12 +39,32 @@ exports.dashboard = function(req, res) {
   }
 };
 
-exports.consumption = function(req, res) {
+// http://en.wikipedia.org/wiki/Fuel_efficiency
+exports.consumption = function(req, res, next) {
   if (req.session.user) {
-    res.render('consumption', {
-      name: req.session.user.name,
-      menu: navbar('Consumption')
-    });
+    // we need to get list of cars for this user
+    UserCar
+      .find({userId: req.session.user.id})
+      .populate('makeId fuelType')
+      .exec(function(err, results) {
+        if (err) return next(err);
+        res.render('consumption', {
+          name: req.session.user.name,
+          menu: navbar('Consumption'),
+          cars: _.map(results, function(i) {
+            return {
+              id: i._id,
+              make: i.makeId.title,
+              // Finding a sub-document http://mongoosejs.com/docs/subdocs.html
+              model: i.makeId.models.id(i.modelId).title,
+              year: i.year,
+              fuelType: i.fuelType.type,
+              engineSize: i.engineSize,
+              reg: i.reg
+            };
+          })
+        });
+      });
   } else {
     req.session.error = 'Please log in.';
     res.redirect('/login');
@@ -78,6 +104,7 @@ exports.loginPost = function(req, res) {
         req.session.user = {};
         req.session.user.name = user.name;
         req.session.user.email = email;
+        req.session.user.id = user._id;
         req.session.msg = "Authenticated as " + user.name;
         req.session.error = null;
         res.redirect('/dashboard');
