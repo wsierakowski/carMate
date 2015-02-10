@@ -2,18 +2,19 @@ extends layout
 
 block content
   include navbar
+  - var curCar = cars[curCarId]
   .row
     .col-sm-2
       h4 Select your car:
       .list-group
-        a.list-group-item.active(href="#") VW Passat 1.9 Diesel 99
-        a.list-group-item(href="#") VW Golf 1.4 Petrol 04
+        each car, i in cars
+          a.list-group-item(href="/consumption/" + car.id, class={active: i === curCarId})=car.reg
+        //-a.list-group-item.active(href="#") VW Passat 1.9 Diesel 99
+        //-a.list-group-item(href="#") VW Golf 1.4 Petrol 04
     .col-sm-10
-      p
-        each car in cars
-          span #{car.id}, #{car.make}, #{car.model}, #{car.year}, #{car.fuelType}, #{car.engineSize}, #{car.reg}
-      h3 Fuel Consumption Log for:
-      p VW Passat 1.9 Diesel 99 99W811
+      span Fuel Consumption Log for:
+      h3 #{curCar.make} #{curCar.model} #{curCar.year.getFullYear()} #{curCar.engineSize} [#{curCar.reg}]
+      //-p VW Passat 1.9 Diesel 1999 99W811
       .panel.panel-primary
         .panel-heading
           h3.panel-title Average Consumption

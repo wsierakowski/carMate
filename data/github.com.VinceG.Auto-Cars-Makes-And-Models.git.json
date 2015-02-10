@@ -9,19 +9,19 @@
          },
          {
             "_id":"2.2CL",
-            "title":" - 2.2CL"
+            "title":"2.2CL"
          },
          {
             "_id":"2.3CL",
-            "title":" - 2.3CL"
+            "title":"2.3CL"
          },
          {
             "_id":"3.0CL",
-            "title":" - 3.0CL"
+            "title":"3.0CL"
          },
          {
             "_id":"3.2CL",
-            "title":" - 3.2CL"
+            "title":"3.2CL"
          },
          {
             "_id":"ILX",
@@ -53,11 +53,11 @@
          },
          {
             "_id":"3.5RL",
-            "title":" - 3.5 RL"
+            "title":"3.5 RL"
          },
          {
             "_id":"RL",
-            "title":" - RL"
+            "title":"RL"
          },
          {
             "_id":"RSX",
@@ -73,15 +73,15 @@
          },
          {
             "_id":"2.5TL",
-            "title":" - 2.5TL"
+            "title":"2.5TL"
          },
          {
             "_id":"3.2TL",
-            "title":" - 3.2TL"
+            "title":"3.2TL"
          },
          {
             "_id":"TL",
-            "title":" - TL"
+            "title":"TL"
          },
          {
             "_id":"TSX",
@@ -419,15 +419,15 @@
          },
          {
             "_id":"128I",
-            "title":" - 128i"
+            "title":"128i"
          },
          {
             "_id":"135I",
-            "title":" - 135i"
+            "title":"135i"
          },
          {
             "_id":"135IS",
-            "title":" - 135is"
+            "title":"135is"
          },
          {
             "_id":"3_SERIES",
@@ -435,119 +435,119 @@
          },
          {
             "_id":"318I",
-            "title":" - 318i"
+            "title":"318i"
          },
          {
             "_id":"318IC",
-            "title":" - 318iC"
+            "title":"318iC"
          },
          {
             "_id":"318IS",
-            "title":" - 318iS"
+            "title":"318iS"
          },
          {
             "_id":"318TI",
-            "title":" - 318ti"
+            "title":"318ti"
          },
          {
             "_id":"320I",
-            "title":" - 320i"
+            "title":"320i"
          },
          {
             "_id":"323CI",
-            "title":" - 323ci"
+            "title":"323ci"
          },
          {
             "_id":"323I",
-            "title":" - 323i"
+            "title":"323i"
          },
          {
             "_id":"323IS",
-            "title":" - 323is"
+            "title":"323is"
          },
          {
             "_id":"323IT",
-            "title":" - 323iT"
+            "title":"323iT"
          },
          {
             "_id":"325CI",
-            "title":" - 325Ci"
+            "title":"325Ci"
          },
          {
             "_id":"325E",
-            "title":" - 325e"
+            "title":"325e"
          },
          {
             "_id":"325ES",
-            "title":" - 325es"
+            "title":"325es"
          },
          {
             "_id":"325I",
-            "title":" - 325i"
+            "title":"325i"
          },
          {
             "_id":"325IS",
-            "title":" - 325is"
+            "title":"325is"
          },
          {
             "_id":"325IX",
-            "title":" - 325iX"
+            "title":"325iX"
          },
          {
             "_id":"325XI",
-            "title":" - 325xi"
+            "title":"325xi"
          },
          {
             "_id":"328CI",
-            "title":" - 328Ci"
+            "title":"328Ci"
          },
          {
             "_id":"328I",
-            "title":" - 328i"
+            "title":"328i"
          },
          {
             "_id":"328IS",
-            "title":" - 328iS"
+            "title":"328iS"
          },
          {
             "_id":"328XI",
-            "title":" - 328xi"
+            "title":"328xi"
          },
          {
             "_id":"330CI",
-            "title":" - 330Ci"
+            "title":"330Ci"
          },
          {
             "_id":"330I",
-            "title":" - 330i"
+            "title":"330i"
          },
          {
             "_id":"330XI",
-            "title":" - 330xi"
+            "title":"330xi"
          },
          {
             "_id":"335D",
-            "title":" - 335d"
+            "title":"335d"
          },
          {
             "_id":"335I",
-            "title":" - 335i"
+            "title":"335i"
          },
          {
             "_id":"335IS",
-            "title":" - 335is"
+            "title":"335is"
          },
          {
             "_id":"335XI",
-            "title":" - 335xi"
+            "title":"335xi"
          },
          {
             "_id":"ACTIVE3",
-            "title":" - ActiveHybrid 3"
+            "title":"ActiveHybrid 3"
          },
          {
             "_id":"BMW325",
-            "title":" - 325"
+            "title":"325"
          },
          {
             "_id":"5_SERIES",
@@ -555,79 +555,79 @@
          },
          {
             "_id":"524TD",
-            "title":" - 524td"
+            "title":"524td"
          },
          {
             "_id":"525I",
-            "title":" - 525i"
+            "title":"525i"
          },
          {
             "_id":"525XI",
-            "title":" - 525xi"
+            "title":"525xi"
          },
          {
             "_id":"528E",
-            "title":" - 528e"
+            "title":"528e"
          },
          {
             "_id":"528I",
-            "title":" - 528i"
+            "title":"528i"
          },
          {
             "_id":"528IT",
-            "title":" - 528iT"
+            "title":"528iT"
          },
          {
             "_id":"528XI",
-            "title":" - 528xi"
+            "title":"528xi"
          },
          {
             "_id":"530I",
-            "title":" - 530i"
+            "title":"530i"
          },
          {
             "_id":"530IT",
-            "title":" - 530iT"
+            "title":"530iT"
          },
          {
             "_id":"530XI",
-            "title":" - 530xi"
+            "title":"530xi"
          },
          {
             "_id":"533I",
-            "title":" - 533i"
+            "title":"533i"
          },
          {
             "_id":"535I",
-            "title":" - 535i"
+            "title":"535i"
          },
          {
             "_id":"535IGT",
-            "title":" - 535i Gran Turismo"
+            "title":"535i Gran Turismo"
          },
          {
             "_id":"535XI",
-            "title":" - 535xi"
+            "title":"535xi"
          },
          {
             "_id":"540I",
-            "title":" - 540i"
+            "title":"540i"
          },
          {
             "_id":"545I",
-            "title":" - 545i"
+            "title":"545i"
          },
          {
             "_id":"550I",
-            "title":" - 550i"
+            "title":"550i"
          },
          {
             "_id":"550IGT",
-            "title":" - 550i Gran Turismo"
+            "title":"550i Gran Turismo"
          },
          {
             "_id":"ACTIVE5",
-            "title":" - ActiveHybrid 5"
+            "title":"ActiveHybrid 5"
          },
          {
             "_id":"6_SERIES",
@@ -635,35 +635,35 @@
          },
          {
             "_id":"633CSI",
-            "title":" - 633CSi"
+            "title":"633CSi"
          },
          {
             "_id":"635CSI",
-            "title":" - 635CSi"
+            "title":"635CSi"
          },
          {
             "_id":"640I",
-            "title":" - 640i"
+            "title":"640i"
          },
          {
             "_id":"640IGC",
-            "title":" - 640i Gran Coupe"
+            "title":"640i Gran Coupe"
          },
          {
             "_id":"645CI",
-            "title":" - 645Ci"
+            "title":"645Ci"
          },
          {
             "_id":"650I",
-            "title":" - 650i"
+            "title":"650i"
          },
          {
             "_id":"650IGC",
-            "title":" - 650i Gran Coupe"
+            "title":"650i Gran Coupe"
          },
          {
             "_id":"L6",
-            "title":" - L6"
+            "title":"L6"
          },
          {
             "_id":"7_SERIES",
@@ -671,63 +671,63 @@
          },
          {
             "_id":"733I",
-            "title":" - 733i"
+            "title":"733i"
          },
          {
             "_id":"735I",
-            "title":" - 735i"
+            "title":"735i"
          },
          {
             "_id":"735IL",
-            "title":" - 735iL"
+            "title":"735iL"
          },
          {
             "_id":"740I",
-            "title":" - 740i"
+            "title":"740i"
          },
          {
             "_id":"740IL",
-            "title":" - 740iL"
+            "title":"740iL"
          },
          {
             "_id":"740LI",
-            "title":" - 740Li"
+            "title":"740Li"
          },
          {
             "_id":"745I",
-            "title":" - 745i"
+            "title":"745i"
          },
          {
             "_id":"745LI",
-            "title":" - 745Li"
+            "title":"745Li"
          },
          {
             "_id":"750I",
-            "title":" - 750i"
+            "title":"750i"
          },
          {
             "_id":"750IL",
-            "title":" - 750iL"
+            "title":"750iL"
          },
          {
             "_id":"750LI",
-            "title":" - 750Li"
+            "title":"750Li"
          },
          {
             "_id":"760I",
-            "title":" - 760i"
+            "title":"760i"
          },
          {
             "_id":"760LI",
-            "title":" - 760Li"
+            "title":"760Li"
          },
          {
             "_id":"ACTIVE7",
-            "title":" - ActiveHybrid 7"
+            "title":"ActiveHybrid 7"
          },
          {
             "_id":"ALPINAB7",
-            "title":" - Alpina B7"
+            "title":"Alpina B7"
          },
          {
             "_id":"8_SERIES",
@@ -735,19 +735,19 @@
          },
          {
             "_id":"840CI",
-            "title":" - 840Ci"
+            "title":"840Ci"
          },
          {
             "_id":"850CI",
-            "title":" - 850Ci"
+            "title":"850Ci"
          },
          {
             "_id":"850CSI",
-            "title":" - 850CSi"
+            "title":"850CSi"
          },
          {
             "_id":"850I",
-            "title":" - 850i"
+            "title":"850i"
          },
          {
             "_id":"L_SERIES",
@@ -755,7 +755,7 @@
          },
          {
             "_id":"L7",
-            "title":" - L7"
+            "title":"L7"
          },
          {
             "_id":"M_SERIES",
@@ -763,35 +763,35 @@
          },
          {
             "_id":"1SERIESM",
-            "title":" - 1 Series M"
+            "title":"1 Series M"
          },
          {
             "_id":"BMWMCOUPE",
-            "title":" - M Coupe"
+            "title":"M Coupe"
          },
          {
             "_id":"BMWROAD",
-            "title":" - M Roadster"
+            "title":"M Roadster"
          },
          {
             "_id":"M3",
-            "title":" - M3"
+            "title":"M3"
          },
          {
             "_id":"M5",
-            "title":" - M5"
+            "title":"M5"
          },
          {
             "_id":"M6",
-            "title":" - M6"
+            "title":"M6"
          },
          {
             "_id":"X5M",
-            "title":" - X5 M"
+            "title":"X5 M"
          },
          {
             "_id":"X6M",
-            "title":" - X6 M"
+            "title":"X6 M"
          },
          {
             "_id":"X_SERIES",
@@ -799,23 +799,23 @@
          },
          {
             "_id":"ACTIVEX6",
-            "title":" - ActiveHybrid X6"
+            "title":"ActiveHybrid X6"
          },
          {
             "_id":"X1",
-            "title":" - X1"
+            "title":"X1"
          },
          {
             "_id":"X3",
-            "title":" - X3"
+            "title":"X3"
          },
          {
             "_id":"X5",
-            "title":" - X5"
+            "title":"X5"
          },
          {
             "_id":"X6",
-            "title":" - X6"
+            "title":"X6"
          },
          {
             "_id":"Z_SERIES",
@@ -823,15 +823,15 @@
          },
          {
             "_id":"Z3",
-            "title":" - Z3"
+            "title":"Z3"
          },
          {
             "_id":"Z4",
-            "title":" - Z4"
+            "title":"Z4"
          },
          {
             "_id":"Z8",
-            "title":" - Z8"
+            "title":"Z8"
          },
          {
             "_id":"BMWOTH",
@@ -2251,11 +2251,11 @@
          },
          {
             "_id":"CROSSTOUR",
-            "title":" - Accord Crosstour"
+            "title":"Accord Crosstour"
          },
          {
             "_id":"HONCROSS",
-            "title":" - Crosstour"
+            "title":"Crosstour"
          },
          {
             "_id":"HONDELSOL",
@@ -2425,11 +2425,11 @@
          },
          {
             "_id":"EX35",
-            "title":" - EX35"
+            "title":"EX35"
          },
          {
             "_id":"EX37",
-            "title":" - EX37"
+            "title":"EX37"
          },
          {
             "_id":"FX_MODELS",
@@ -2437,19 +2437,19 @@
          },
          {
             "_id":"FX35",
-            "title":" - FX35"
+            "title":"FX35"
          },
          {
             "_id":"FX37",
-            "title":" - FX37"
+            "title":"FX37"
          },
          {
             "_id":"FX45",
-            "title":" - FX45"
+            "title":"FX45"
          },
          {
             "_id":"FX50",
-            "title":" - FX50"
+            "title":"FX50"
          },
          {
             "_id":"G_MODELS",
@@ -2457,19 +2457,19 @@
          },
          {
             "_id":"G20",
-            "title":" - G20"
+            "title":"G20"
          },
          {
             "_id":"G25",
-            "title":" - G25"
+            "title":"G25"
          },
          {
             "_id":"G35",
-            "title":" - G35"
+            "title":"G35"
          },
          {
             "_id":"G37",
-            "title":" - G37"
+            "title":"G37"
          },
          {
             "_id":"I_MODELS",
@@ -2477,11 +2477,11 @@
          },
          {
             "_id":"I30",
-            "title":" - I30"
+            "title":"I30"
          },
          {
             "_id":"I35",
-            "title":" - I35"
+            "title":"I35"
          },
          {
             "_id":"J_MODELS",
@@ -2489,7 +2489,7 @@
          },
          {
             "_id":"J30",
-            "title":" - J30"
+            "title":"J30"
          },
          {
             "_id":"JX_MODELS",
@@ -2497,7 +2497,7 @@
          },
          {
             "_id":"JX35",
-            "title":" - JX35"
+            "title":"JX35"
          },
          {
             "_id":"M_MODELS",
@@ -2505,27 +2505,27 @@
          },
          {
             "_id":"M30",
-            "title":" - M30"
+            "title":"M30"
          },
          {
             "_id":"M35",
-            "title":" - M35"
+            "title":"M35"
          },
          {
             "_id":"M35HYBRID",
-            "title":" - M35h"
+            "title":"M35h"
          },
          {
             "_id":"M37",
-            "title":" - M37"
+            "title":"M37"
          },
          {
             "_id":"M45",
-            "title":" - M45"
+            "title":"M45"
          },
          {
             "_id":"M56",
-            "title":" - M56"
+            "title":"M56"
          },
          {
             "_id":"Q_MODELS",
@@ -2533,7 +2533,7 @@
          },
          {
             "_id":"Q45",
-            "title":" - Q45"
+            "title":"Q45"
          },
          {
             "_id":"QX_MODELS",
@@ -2541,11 +2541,11 @@
          },
          {
             "_id":"QX4",
-            "title":" - QX4"
+            "title":"QX4"
          },
          {
             "_id":"QX56",
-            "title":" - QX56"
+            "title":"QX56"
          },
          {
             "_id":"INFOTH",
@@ -2653,43 +2653,43 @@
          },
          {
             "_id":"JAGXJ12",
-            "title":" - XJ12"
+            "title":"XJ12"
          },
          {
             "_id":"JAGXJ6",
-            "title":" - XJ6"
+            "title":"XJ6"
          },
          {
             "_id":"JAGXJR",
-            "title":" - XJR"
+            "title":"XJR"
          },
          {
             "_id":"JAGXJRS",
-            "title":" - XJR-S"
+            "title":"XJR-S"
          },
          {
             "_id":"JAGXJS",
-            "title":" - XJS"
+            "title":"XJS"
          },
          {
             "_id":"VANDEN",
-            "title":" - XJ Vanden Plas"
+            "title":"XJ Vanden Plas"
          },
          {
             "_id":"XJ",
-            "title":" - XJ"
+            "title":"XJ"
          },
          {
             "_id":"XJ8",
-            "title":" - XJ8"
+            "title":"XJ8"
          },
          {
             "_id":"XJ8L",
-            "title":" - XJ8 L"
+            "title":"XJ8 L"
          },
          {
             "_id":"XJSPORT",
-            "title":" - XJ Sport"
+            "title":"XJ Sport"
          },
          {
             "_id":"XK_SERIES",
@@ -2697,15 +2697,15 @@
          },
          {
             "_id":"JAGXK8",
-            "title":" - XK8"
+            "title":"XK8"
          },
          {
             "_id":"XK",
-            "title":" - XK"
+            "title":"XK"
          },
          {
             "_id":"XKR",
-            "title":" - XKR"
+            "title":"XKR"
          },
          {
             "_id":"JAGOTH",
@@ -2957,7 +2957,7 @@
          },
          {
             "_id":"CT200H",
-            "title":" - CT 200h"
+            "title":"CT 200h"
          },
          {
             "_id":"ES_MODELS",
@@ -2965,23 +2965,23 @@
          },
          {
             "_id":"ES250",
-            "title":" - ES 250"
+            "title":"ES 250"
          },
          {
             "_id":"ES300",
-            "title":" - ES 300"
+            "title":"ES 300"
          },
          {
             "_id":"ES300H",
-            "title":" - ES 300h"
+            "title":"ES 300h"
          },
          {
             "_id":"ES330",
-            "title":" - ES 330"
+            "title":"ES 330"
          },
          {
             "_id":"ES350",
-            "title":" - ES 350"
+            "title":"ES 350"
          },
          {
             "_id":"GS_MODELS",
@@ -2989,27 +2989,27 @@
          },
          {
             "_id":"GS300",
-            "title":" - GS 300"
+            "title":"GS 300"
          },
          {
             "_id":"GS350",
-            "title":" - GS 350"
+            "title":"GS 350"
          },
          {
             "_id":"GS400",
-            "title":" - GS 400"
+            "title":"GS 400"
          },
          {
             "_id":"GS430",
-            "title":" - GS 430"
+            "title":"GS 430"
          },
          {
             "_id":"GS450H",
-            "title":" - GS 450h"
+            "title":"GS 450h"
          },
          {
             "_id":"GS460",
-            "title":" - GS 460"
+            "title":"GS 460"
          },
          {
             "_id":"GX_MODELS",
@@ -3017,11 +3017,11 @@
          },
          {
             "_id":"GX460",
-            "title":" - GX 460"
+            "title":"GX 460"
          },
          {
             "_id":"GX470",
-            "title":" - GX 470"
+            "title":"GX 470"
          },
          {
             "_id":"HS_MODELS",
@@ -3029,7 +3029,7 @@
          },
          {
             "_id":"HS250H",
-            "title":" - HS 250h"
+            "title":"HS 250h"
          },
          {
             "_id":"IS_MODELS",
@@ -3037,27 +3037,27 @@
          },
          {
             "_id":"IS250",
-            "title":" - IS 250"
+            "title":"IS 250"
          },
          {
             "_id":"IS250C",
-            "title":" - IS 250C"
+            "title":"IS 250C"
          },
          {
             "_id":"IS300",
-            "title":" - IS 300"
+            "title":"IS 300"
          },
          {
             "_id":"IS350",
-            "title":" - IS 350"
+            "title":"IS 350"
          },
          {
             "_id":"IS350C",
-            "title":" - IS 350C"
+            "title":"IS 350C"
          },
          {
             "_id":"ISF",
-            "title":" - IS F"
+            "title":"IS F"
          },
          {
             "_id":"LEXLFA",
@@ -3069,19 +3069,19 @@
          },
          {
             "_id":"LS400",
-            "title":" - LS 400"
+            "title":"LS 400"
          },
          {
             "_id":"LS430",
-            "title":" - LS 430"
+            "title":"LS 430"
          },
          {
             "_id":"LS460",
-            "title":" - LS 460"
+            "title":"LS 460"
          },
          {
             "_id":"LS600H",
-            "title":" - LS 600h"
+            "title":"LS 600h"
          },
          {
             "_id":"LX_MODELS",
@@ -3089,15 +3089,15 @@
          },
          {
             "_id":"LX450",
-            "title":" - LX 450"
+            "title":"LX 450"
          },
          {
             "_id":"LX470",
-            "title":" - LX 470"
+            "title":"LX 470"
          },
          {
             "_id":"LX570",
-            "title":" - LX 570"
+            "title":"LX 570"
          },
          {
             "_id":"RX_MODELS",
@@ -3105,23 +3105,23 @@
          },
          {
             "_id":"RX300",
-            "title":" - RX 300"
+            "title":"RX 300"
          },
          {
             "_id":"RX330",
-            "title":" - RX 330"
+            "title":"RX 330"
          },
          {
             "_id":"RX350",
-            "title":" - RX 350"
+            "title":"RX 350"
          },
          {
             "_id":"RX400H",
-            "title":" - RX 400h"
+            "title":"RX 400h"
          },
          {
             "_id":"RX450H",
-            "title":" - RX 450h"
+            "title":"RX 450h"
          },
          {
             "_id":"SC_MODELS",
@@ -3129,15 +3129,15 @@
          },
          {
             "_id":"SC300",
-            "title":" - SC 300"
+            "title":"SC 300"
          },
          {
             "_id":"SC400",
-            "title":" - SC 400"
+            "title":"SC 400"
          },
          {
             "_id":"SC430",
-            "title":" - SC 430"
+            "title":"SC 430"
          },
          {
             "_id":"LEXOTH",
@@ -3435,11 +3435,11 @@
          },
          {
             "_id":"190D",
-            "title":" - 190D"
+            "title":"190D"
          },
          {
             "_id":"190E",
-            "title":" - 190E"
+            "title":"190E"
          },
          {
             "_id":"240_CLASS",
@@ -3447,7 +3447,7 @@
          },
          {
             "_id":"240D",
-            "title":" - 240D"
+            "title":"240D"
          },
          {
             "_id":"300_CLASS_E_CLASS",
@@ -3455,27 +3455,27 @@
          },
          {
             "_id":"300CD",
-            "title":" - 300CD"
+            "title":"300CD"
          },
          {
             "_id":"300CE",
-            "title":" - 300CE"
+            "title":"300CE"
          },
          {
             "_id":"300D",
-            "title":" - 300D"
+            "title":"300D"
          },
          {
             "_id":"300E",
-            "title":" - 300E"
+            "title":"300E"
          },
          {
             "_id":"300TD",
-            "title":" - 300TD"
+            "title":"300TD"
          },
          {
             "_id":"300TE",
-            "title":" - 300TE"
+            "title":"300TE"
          },
          {
             "_id":"C_CLASS",
@@ -3483,55 +3483,55 @@
          },
          {
             "_id":"C220",
-            "title":" - C220"
+            "title":"C220"
          },
          {
             "_id":"C230",
-            "title":" - C230"
+            "title":"C230"
          },
          {
             "_id":"C240",
-            "title":" - C240"
+            "title":"C240"
          },
          {
             "_id":"C250",
-            "title":" - C250"
+            "title":"C250"
          },
          {
             "_id":"C280",
-            "title":" - C280"
+            "title":"C280"
          },
          {
             "_id":"C300",
-            "title":" - C300"
+            "title":"C300"
          },
          {
             "_id":"C320",
-            "title":" - C320"
+            "title":"C320"
          },
          {
             "_id":"C32AMG",
-            "title":" - C32 AMG"
+            "title":"C32 AMG"
          },
          {
             "_id":"C350",
-            "title":" - C350"
+            "title":"C350"
          },
          {
             "_id":"C36AMG",
-            "title":" - C36 AMG"
+            "title":"C36 AMG"
          },
          {
             "_id":"C43AMG",
-            "title":" - C43 AMG"
+            "title":"C43 AMG"
          },
          {
             "_id":"C55AMG",
-            "title":" - C55 AMG"
+            "title":"C55 AMG"
          },
          {
             "_id":"C63AMG",
-            "title":" - C63 AMG"
+            "title":"C63 AMG"
          },
          {
             "_id":"CL_CLASS",
@@ -3539,27 +3539,27 @@
          },
          {
             "_id":"CL500",
-            "title":" - CL500"
+            "title":"CL500"
          },
          {
             "_id":"CL550",
-            "title":" - CL550"
+            "title":"CL550"
          },
          {
             "_id":"CL55AMG",
-            "title":" - CL55 AMG"
+            "title":"CL55 AMG"
          },
          {
             "_id":"CL600",
-            "title":" - CL600"
+            "title":"CL600"
          },
          {
             "_id":"CL63AMG",
-            "title":" - CL63 AMG"
+            "title":"CL63 AMG"
          },
          {
             "_id":"CL65AMG",
-            "title":" - CL65 AMG"
+            "title":"CL65 AMG"
          },
          {
             "_id":"CLK_CLASS",
@@ -3567,31 +3567,31 @@
          },
          {
             "_id":"CLK320",
-            "title":" - CLK320"
+            "title":"CLK320"
          },
          {
             "_id":"CLK350",
-            "title":" - CLK350"
+            "title":"CLK350"
          },
          {
             "_id":"CLK430",
-            "title":" - CLK430"
+            "title":"CLK430"
          },
          {
             "_id":"CLK500",
-            "title":" - CLK500"
+            "title":"CLK500"
          },
          {
             "_id":"CLK550",
-            "title":" - CLK550"
+            "title":"CLK550"
          },
          {
             "_id":"CLK55AMG",
-            "title":" - CLK55 AMG"
+            "title":"CLK55 AMG"
          },
          {
             "_id":"CLK63AMG",
-            "title":" - CLK63 AMG"
+            "title":"CLK63 AMG"
          },
          {
             "_id":"CLS_CLASS",
@@ -3599,19 +3599,19 @@
          },
          {
             "_id":"CLS500",
-            "title":" - CLS500"
+            "title":"CLS500"
          },
          {
             "_id":"CLS550",
-            "title":" - CLS550"
+            "title":"CLS550"
          },
          {
             "_id":"CLS55AMG",
-            "title":" - CLS55 AMG"
+            "title":"CLS55 AMG"
          },
          {
             "_id":"CLS63AMG",
-            "title":" - CLS63 AMG"
+            "title":"CLS63 AMG"
          },
          {
             "_id":"E_CLASS",
@@ -3619,75 +3619,75 @@
          },
          {
             "_id":"260E",
-            "title":" - 260E"
+            "title":"260E"
          },
          {
             "_id":"280CE",
-            "title":" - 280CE"
+            "title":"280CE"
          },
          {
             "_id":"280E",
-            "title":" - 280E"
+            "title":"280E"
          },
          {
             "_id":"400E",
-            "title":" - 400E"
+            "title":"400E"
          },
          {
             "_id":"500E",
-            "title":" - 500E"
+            "title":"500E"
          },
          {
             "_id":"E300",
-            "title":" - E300"
+            "title":"E300"
          },
          {
             "_id":"E320",
-            "title":" - E320"
+            "title":"E320"
          },
          {
             "_id":"E320BLUE",
-            "title":" - E320 Bluetec"
+            "title":"E320 Bluetec"
          },
          {
             "_id":"E320CDI",
-            "title":" - E320 CDI"
+            "title":"E320 CDI"
          },
          {
             "_id":"E350",
-            "title":" - E350"
+            "title":"E350"
          },
          {
             "_id":"E350BLUE",
-            "title":" - E350 Bluetec"
+            "title":"E350 Bluetec"
          },
          {
             "_id":"E400",
-            "title":" - E400 Hybrid"
+            "title":"E400 Hybrid"
          },
          {
             "_id":"E420",
-            "title":" - E420"
+            "title":"E420"
          },
          {
             "_id":"E430",
-            "title":" - E430"
+            "title":"E430"
          },
          {
             "_id":"E500",
-            "title":" - E500"
+            "title":"E500"
          },
          {
             "_id":"E550",
-            "title":" - E550"
+            "title":"E550"
          },
          {
             "_id":"E55AMG",
-            "title":" - E55 AMG"
+            "title":"E55 AMG"
          },
          {
             "_id":"E63AMG",
-            "title":" - E63 AMG"
+            "title":"E63 AMG"
          },
          {
             "_id":"G_CLASS",
@@ -3695,19 +3695,19 @@
          },
          {
             "_id":"G500",
-            "title":" - G500"
+            "title":"G500"
          },
          {
             "_id":"G550",
-            "title":" - G550"
+            "title":"G550"
          },
          {
             "_id":"G55AMG",
-            "title":" - G55 AMG"
+            "title":"G55 AMG"
          },
          {
             "_id":"G63AMG",
-            "title":" - G63 AMG"
+            "title":"G63 AMG"
          },
          {
             "_id":"GL_CLASS",
@@ -3715,23 +3715,23 @@
          },
          {
             "_id":"GL320BLUE",
-            "title":" - GL320 Bluetec"
+            "title":"GL320 Bluetec"
          },
          {
             "_id":"GL320CDI",
-            "title":" - GL320 CDI"
+            "title":"GL320 CDI"
          },
          {
             "_id":"GL350BLUE",
-            "title":" - GL350 Bluetec"
+            "title":"GL350 Bluetec"
          },
          {
             "_id":"GL450",
-            "title":" - GL450"
+            "title":"GL450"
          },
          {
             "_id":"GL550",
-            "title":" - GL550"
+            "title":"GL550"
          },
          {
             "_id":"GLK_CLASS",
@@ -3739,7 +3739,7 @@
          },
          {
             "_id":"GLK350",
-            "title":" - GLK350"
+            "title":"GLK350"
          },
          {
             "_id":"M_CLASS",
@@ -3747,47 +3747,47 @@
          },
          {
             "_id":"ML320",
-            "title":" - ML320"
+            "title":"ML320"
          },
          {
             "_id":"ML320BLUE",
-            "title":" - ML320 Bluetec"
+            "title":"ML320 Bluetec"
          },
          {
             "_id":"ML320CDI",
-            "title":" - ML320 CDI"
+            "title":"ML320 CDI"
          },
          {
             "_id":"ML350",
-            "title":" - ML350"
+            "title":"ML350"
          },
          {
             "_id":"ML350BLUE",
-            "title":" - ML350 Bluetec"
+            "title":"ML350 Bluetec"
          },
          {
             "_id":"ML430",
-            "title":" - ML430"
+            "title":"ML430"
          },
          {
             "_id":"ML450HY",
-            "title":" - ML450 Hybrid"
+            "title":"ML450 Hybrid"
          },
          {
             "_id":"ML500",
-            "title":" - ML500"
+            "title":"ML500"
          },
          {
             "_id":"ML550",
-            "title":" - ML550"
+            "title":"ML550"
          },
          {
             "_id":"ML55AMG",
-            "title":" - ML55 AMG"
+            "title":"ML55 AMG"
          },
          {
             "_id":"ML63AMG",
-            "title":" - ML63 AMG"
+            "title":"ML63 AMG"
          },
          {
             "_id":"R_CLASS",
@@ -3795,27 +3795,27 @@
          },
          {
             "_id":"R320BLUE",
-            "title":" - R320 Bluetec"
+            "title":"R320 Bluetec"
          },
          {
             "_id":"R320CDI",
-            "title":" - R320 CDI"
+            "title":"R320 CDI"
          },
          {
             "_id":"R350",
-            "title":" - R350"
+            "title":"R350"
          },
          {
             "_id":"R350BLUE",
-            "title":" - R350 Bluetec"
+            "title":"R350 Bluetec"
          },
          {
             "_id":"R500",
-            "title":" - R500"
+            "title":"R500"
          },
          {
             "_id":"R63AMG",
-            "title":" - R63 AMG"
+            "title":"R63 AMG"
          },
          {
             "_id":"S_CLASS",
@@ -3823,123 +3823,123 @@
          },
          {
             "_id":"300SD",
-            "title":" - 300SD"
+            "title":"300SD"
          },
          {
             "_id":"300SDL",
-            "title":" - 300SDL"
+            "title":"300SDL"
          },
          {
             "_id":"300SE",
-            "title":" - 300SE"
+            "title":"300SE"
          },
          {
             "_id":"300SEL",
-            "title":" - 300SEL"
+            "title":"300SEL"
          },
          {
             "_id":"350SD",
-            "title":" - 350SD"
+            "title":"350SD"
          },
          {
             "_id":"350SDL",
-            "title":" - 350SDL"
+            "title":"350SDL"
          },
          {
             "_id":"380SE",
-            "title":" - 380SE"
+            "title":"380SE"
          },
          {
             "_id":"380SEC",
-            "title":" - 380SEC"
+            "title":"380SEC"
          },
          {
             "_id":"380SEL",
-            "title":" - 380SEL"
+            "title":"380SEL"
          },
          {
             "_id":"400SE",
-            "title":" - 400SE"
+            "title":"400SE"
          },
          {
             "_id":"400SEL",
-            "title":" - 400SEL"
+            "title":"400SEL"
          },
          {
             "_id":"420SEL",
-            "title":" - 420SEL"
+            "title":"420SEL"
          },
          {
             "_id":"500SEC",
-            "title":" - 500SEC"
+            "title":"500SEC"
          },
          {
             "_id":"500SEL",
-            "title":" - 500SEL"
+            "title":"500SEL"
          },
          {
             "_id":"560SEC",
-            "title":" - 560SEC"
+            "title":"560SEC"
          },
          {
             "_id":"560SEL",
-            "title":" - 560SEL"
+            "title":"560SEL"
          },
          {
             "_id":"600SEC",
-            "title":" - 600SEC"
+            "title":"600SEC"
          },
          {
             "_id":"600SEL",
-            "title":" - 600SEL"
+            "title":"600SEL"
          },
          {
             "_id":"S320",
-            "title":" - S320"
+            "title":"S320"
          },
          {
             "_id":"S350",
-            "title":" - S350"
+            "title":"S350"
          },
          {
             "_id":"S350BLUE",
-            "title":" - S350 Bluetec"
+            "title":"S350 Bluetec"
          },
          {
             "_id":"S400HY",
-            "title":" - S400 Hybrid"
+            "title":"S400 Hybrid"
          },
          {
             "_id":"S420",
-            "title":" - S420"
+            "title":"S420"
          },
          {
             "_id":"S430",
-            "title":" - S430"
+            "title":"S430"
          },
          {
             "_id":"S500",
-            "title":" - S500"
+            "title":"S500"
          },
          {
             "_id":"S550",
-            "title":" - S550"
+            "title":"S550"
          },
          {
             "_id":"S55AMG",
-            "title":" - S55 AMG"
+            "title":"S55 AMG"
          },
          {
             "_id":"S600",
-            "title":" - S600"
+            "title":"S600"
          },
          {
             "_id":"S63AMG",
-            "title":" - S63 AMG"
+            "title":"S63 AMG"
          },
          {
             "_id":"S65AMG",
-            "title":" - S65 AMG"
+            "title":"S65 AMG"
          },
          {
             "_id":"SL_CLASS",
@@ -3947,55 +3947,55 @@
          },
          {
             "_id":"300SL",
-            "title":" - 300SL"
+            "title":"300SL"
          },
          {
             "_id":"380SL",
-            "title":" - 380SL"
+            "title":"380SL"
          },
          {
             "_id":"380SLC",
-            "title":" - 380SLC"
+            "title":"380SLC"
          },
          {
             "_id":"500SL",
-            "title":" - 500SL"
+            "title":"500SL"
          },
          {
             "_id":"560SL",
-            "title":" - 560SL"
+            "title":"560SL"
          },
          {
             "_id":"600SL",
-            "title":" - 600SL"
+            "title":"600SL"
          },
          {
             "_id":"SL320",
-            "title":" - SL320"
+            "title":"SL320"
          },
          {
             "_id":"SL500",
-            "title":" - SL500"
+            "title":"SL500"
          },
          {
             "_id":"SL550",
-            "title":" - SL550"
+            "title":"SL550"
          },
          {
             "_id":"SL55AMG",
-            "title":" - SL55 AMG"
+            "title":"SL55 AMG"
          },
          {
             "_id":"SL600",
-            "title":" - SL600"
+            "title":"SL600"
          },
          {
             "_id":"SL63AMG",
-            "title":" - SL63 AMG"
+            "title":"SL63 AMG"
          },
          {
             "_id":"SL65AMG",
-            "title":" - SL65 AMG"
+            "title":"SL65 AMG"
          },
          {
             "_id":"SLK_CLASS",
@@ -4003,35 +4003,35 @@
          },
          {
             "_id":"SLK230",
-            "title":" - SLK230"
+            "title":"SLK230"
          },
          {
             "_id":"SLK250",
-            "title":" - SLK250"
+            "title":"SLK250"
          },
          {
             "_id":"SLK280",
-            "title":" - SLK280"
+            "title":"SLK280"
          },
          {
             "_id":"SLK300",
-            "title":" - SLK300"
+            "title":"SLK300"
          },
          {
             "_id":"SLK320",
-            "title":" - SLK320"
+            "title":"SLK320"
          },
          {
             "_id":"SLK32AMG",
-            "title":" - SLK32 AMG"
+            "title":"SLK32 AMG"
          },
          {
             "_id":"SLK350",
-            "title":" - SLK350"
+            "title":"SLK350"
          },
          {
             "_id":"SLK55AMG",
-            "title":" - SLK55 AMG"
+            "title":"SLK55 AMG"
          },
          {
             "_id":"SLR_CLASS",
@@ -4039,7 +4039,7 @@
          },
          {
             "_id":"SLR",
-            "title":" - SLR"
+            "title":"SLR"
          },
          {
             "_id":"SLS_CLASS",
@@ -4047,7 +4047,7 @@
          },
          {
             "_id":"SLSAMG",
-            "title":" - SLS AMG"
+            "title":"SLS AMG"
          },
          {
             "_id":"SPRINTER_CLASS",
@@ -4055,7 +4055,7 @@
          },
          {
             "_id":"MBSPRINTER",
-            "title":" - Sprinter"
+            "title":"Sprinter"
          },
          {
             "_id":"MBOTH",
@@ -4169,11 +4169,11 @@
          },
          {
             "_id":"COOPERCLUB",
-            "title":" - Cooper Clubman"
+            "title":"Cooper Clubman"
          },
          {
             "_id":"COOPRCLUBS",
-            "title":" - Cooper S Clubman"
+            "title":"Cooper S Clubman"
          },
          {
             "_id":"COOPCOUNTRY_MODELS",
@@ -4181,11 +4181,11 @@
          },
          {
             "_id":"COUNTRYMAN",
-            "title":" - Cooper Countryman"
+            "title":"Cooper Countryman"
          },
          {
             "_id":"COUNTRYMNS",
-            "title":" - Cooper S Countryman"
+            "title":"Cooper S Countryman"
          },
          {
             "_id":"COOPCOUP_MODELS",
@@ -4193,11 +4193,11 @@
          },
          {
             "_id":"MINICOUPE",
-            "title":" - Cooper Coupe"
+            "title":"Cooper Coupe"
          },
          {
             "_id":"MINISCOUPE",
-            "title":" - Cooper S Coupe"
+            "title":"Cooper S Coupe"
          },
          {
             "_id":"COOPER_MODELS",
@@ -4205,11 +4205,11 @@
          },
          {
             "_id":"COOPER",
-            "title":" - Cooper"
+            "title":"Cooper"
          },
          {
             "_id":"COOPERS",
-            "title":" - Cooper S"
+            "title":"Cooper S"
          },
          {
             "_id":"COOPRROAD_MODELS",
@@ -4217,11 +4217,11 @@
          },
          {
             "_id":"COOPERROAD",
-            "title":" - Cooper Roadster"
+            "title":"Cooper Roadster"
          },
          {
             "_id":"COOPERSRD",
-            "title":" - Cooper S Roadster"
+            "title":"Cooper S Roadster"
          }
       ]
    },
@@ -4961,15 +4961,15 @@
          },
          {
             "_id":"L100",
-            "title":" - L100"
+            "title":"L100"
          },
          {
             "_id":"L200",
-            "title":" - L200"
+            "title":"L200"
          },
          {
             "_id":"L300",
-            "title":" - L300"
+            "title":"L300"
          },
          {
             "_id":"LSSATURN",
@@ -4981,19 +4981,19 @@
          },
          {
             "_id":"LW",
-            "title":" - LW1"
+            "title":"LW1"
          },
          {
             "_id":"LW2",
-            "title":" - LW2"
+            "title":"LW2"
          },
          {
             "_id":"LW200",
-            "title":" - LW200"
+            "title":"LW200"
          },
          {
             "_id":"LW300",
-            "title":" - LW300"
+            "title":"LW300"
          },
          {
             "_id":"OUTLOOK",
@@ -5009,11 +5009,11 @@
          },
          {
             "_id":"SC1",
-            "title":" - SC1"
+            "title":"SC1"
          },
          {
             "_id":"SC2",
-            "title":" - SC2"
+            "title":"SC2"
          },
          {
             "_id":"SKY",
@@ -5025,15 +5025,15 @@
          },
          {
             "_id":"SL",
-            "title":" - SL"
+            "title":"SL"
          },
          {
             "_id":"SL1",
-            "title":" - SL1"
+            "title":"SL1"
          },
          {
             "_id":"SL2",
-            "title":" - SL2"
+            "title":"SL2"
          },
          {
             "_id":"SW_SERIES",
@@ -5041,11 +5041,11 @@
          },
          {
             "_id":"SW1",
-            "title":" - SW1"
+            "title":"SW1"
          },
          {
             "_id":"SW2",
-            "title":" - SW2"
+            "title":"SW2"
          },
          {
             "_id":"VUE",
@@ -5497,11 +5497,11 @@
          },
          {
             "_id":"GOLF",
-            "title":" - Golf"
+            "title":"Golf"
          },
          {
             "_id":"RABBIT",
-            "title":" - Rabbit"
+            "title":"Rabbit"
          },
          {
             "_id":"JET",

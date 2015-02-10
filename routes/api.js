@@ -58,11 +58,12 @@ exports.consumption = function(req, res, next) {
               // Finding a sub-document http://mongoosejs.com/docs/subdocs.html
               model: i.makeId.models.id(i.modelId).title,
               year: i.year,
-              fuelType: i.fuelType.type,
+              fuelType: i.fuelType._id,
               engineSize: i.engineSize,
               reg: i.reg
             };
-          })
+          }),
+          curCarId: 0//results[0]._id
         });
       });
   } else {

@@ -11,15 +11,14 @@ var consumptionSchema = new Schema({
 	consumption: {type: Number, required: true}
 });
 
-// http://dailyjs.com/2011/02/07/node-tutorial-12/
-// http://stackoverflow.com/questions/11325372/mongoose-odm-change-variables-before-saving
-// userCarSchema.pre('save', function(next) {
-//     var consumption = this;
+consumptionSchema.pre('save', function(next) {
+    // We want to calculate consumption here
+    // var userCar = this;
 
-//     if (!userCar.isModified('reg')) return next();
+    // if (!userCar.isModified('reg')) return next();
 
-//     userCar.reg = userCar.reg.toUpperCase();
-//     next();
-// });
+    // userCar.reg = userCar.reg.toUpperCase();
+    // next();
+});
 
 module.exports = mongoose.model('Consumption', consumptionSchema);

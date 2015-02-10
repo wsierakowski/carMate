@@ -4,7 +4,7 @@
         "reg": "99W811",
         "makeId": "VOLKS",
         "modelId": "PASS",
-        "year": "1999",
+        "year": "1999-01-01",
         "fuelType": "diesel",
         "engineSize": "1.9"
     },
@@ -13,7 +13,7 @@
         "reg": "ZPLY1234",
         "makeId": "VOLKS",
         "modelId": "GOLF",
-        "year": "1993",
+        "year": "1993-01-01",
         "fuelType": "petrol",
         "engineSize": "1.8"
     },
@@ -22,7 +22,7 @@
         "reg": "04ww3528",
         "makeId": "VOLKS",
         "modelId": "GOLF",
-        "year": "2004",
+        "year": "2004-01-01",
         "fuelType": "petrol",
         "engineSize": "1.4"
     }
