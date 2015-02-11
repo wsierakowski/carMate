@@ -28,21 +28,27 @@ block content
             th Miles/kms
             th Gallons/liters
         tbody
-          tr
-            td 10/10/2014
-            td 7/100
-            td 34.32343
-            td 4342/432434
-            td 434/4344
-          tr
-            td 10/10/2014
-            td 7/100
-            td 34.32343
-            td 4342/432434
-            td 434/4344
-          tr
-            td 10/10/2014
-            td 7/100
-            td 34.32343
-            td 4342/432434
-            td 434/4344
+          each entry, i in consumptions
+            tr
+              td=entry.logtime
+              td=entry.consumption
+              td=entry.consumptionMpg
+              td #{entry.miles}/#{entry.kms}
+              td #{entry.gallons}/#{entry.liters}
+          //-   td 10/10/2014
+          //-   td 7/100
+          //-   td 34.32343
+          //-   td 4342/432434
+          //-   td 434/4344
+          //- tr
+          //-   td 10/10/2014
+          //-   td 7/100
+          //-   td 34.32343
+          //-   td 4342/432434
+          //-   td 434/4344
+          //- tr
+          //-   td 10/10/2014
+          //-   td 7/100
+          //-   td 34.32343
+          //-   td 4342/432434
+          //-   td 434/4344

@@ -8,6 +8,7 @@ var _ = require('underscore'),
   UserCar = require('../models/usercar.js'),
   Car = require('../models/car.js'),
   FuelType = require('../models/fuelType.js'),
+  Consumption = require('../models/consumption.js'),
 
   navbar = require('./navbar.js');
 
@@ -46,25 +47,44 @@ exports.consumption = function(req, res, next) {
     UserCar
       .find({userId: req.session.user.id})
       .populate('makeId fuelType')
-      .exec(function(err, results) {
+      .exec(function(err, userCarRes) {
         if (err) return next(err);
-        res.render('consumption', {
-          name: req.session.user.name,
-          menu: navbar('Consumption'),
-          cars: _.map(results, function(i) {
-            return {
-              id: i._id,
-              make: i.makeId.title,
-              // Finding a sub-document http://mongoosejs.com/docs/subdocs.html
-              model: i.makeId.models.id(i.modelId).title,
-              year: i.year,
-              fuelType: i.fuelType._id,
-              engineSize: i.engineSize,
-              reg: i.reg
-            };
-          }),
-          curCarId: 0//results[0]._id
-        });
+
+        Consumption.find({
+            reg: userCarRes[0].reg,
+            userId: userCarRes[0].userId
+          }, function(err, consRes) {
+            if (err) return next(err);
+
+            res.render('consumption', {
+              name: req.session.user.name,
+              menu: navbar('Consumption'),
+              cars: _.map(userCarRes, function(i) {
+                return {
+                  id: i._id,
+                  make: i.makeId.title,
+                  // Finding a sub-document http://mongoosejs.com/docs/subdocs.html
+                  model: i.makeId.models.id(i.modelId).title,
+                  year: i.year,
+                  fuelType: i.fuelType._id,
+                  engineSize: i.engineSize,
+                  reg: i.reg
+                };
+              }),
+              curCarId: 0,
+              consumptions: _.map(consRes, function(i) {
+                return {
+                  kms: i.kms,
+                  miles: i.miles,
+                  liters: i.liters,
+                  gallons: i.gallons,
+                  consumption: i.consumption,
+                  consumptionMpg: i.consumptionMpg
+                };
+              })
+            });
+
+          });
       });
   } else {
     req.session.error = 'Please log in.';

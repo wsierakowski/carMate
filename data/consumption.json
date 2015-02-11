@@ -1,11 +1,32 @@
 [
     {
         "userEmail": "wojciech@sierakowski.eu",
-        "userCarReg": "99w811",
+        "reg": "99w811",
         "miles": 436.6,
         "kms": 702.64,
         "liters": 52.331,
         "consumption": 7.447768416,
         "logtime": "2014-12-15T23:28:56.782Z"
+    },
+    {
+        "userEmail": "wojciech@sierakowski.eu",
+        "reg": "99w811",
+        "miles": 226.6,
+        "liters": 25.98,
+        "logtime": "2014-12-20T00:00:00.782Z"
+    },
+    {
+        "userEmail": "wojciech@sierakowski.eu",
+        "reg": "99w811",
+        "miles": 353.4,
+        "liters": 39.49,
+        "logtime": "2015-01-15T00:00:00.782Z"
+    },
+    {
+        "userEmail": "wojciech@sierakowski.eu",
+        "reg": "99w811",
+        "miles": 424.5,
+        "liters": 46.991,
+        "logtime": "2015-01-29T00:00:00.782Z"
     }
 ]

@@ -23,5 +23,5 @@ exports.getConsumption = function(liters, kms) {
 };
 
 exports.getConsumptionMpg = function(liters, kms) {
-    return kmsToMiles(kms) / litersToGallons(liters);
+    return this.kmsToMiles(kms) / this.litersToGallons(liters);
 };
