@@ -59,6 +59,7 @@ app.use(function(req, res, next){
 app.get('/', api.home);
 app.get('/dashboard', api.dashboard);
 app.get('/consumption', api.consumption);
+app.get('/consumption/:id', api.consumption);
 
 app.get('/logout', api.logout);
 

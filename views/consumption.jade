@@ -18,23 +18,27 @@ block content
       .panel.panel-primary
         .panel-heading
           h3.panel-title Average Consumption
-        .panel-body 6.1km/h 5355mpg
+        .panel-body #{avgCons}km/h #{avgConsMpg}mpg
       table.table.table-striped
         thead
           tr
             th Log Time
-            th km/L
+            th Km/100
             th MPG
-            th Miles/kms
-            th Gallons/liters
+            th Miles
+            th Kms
+            th Gallons
+            th Liters
         tbody
           each entry, i in consumptions
             tr
               td=entry.logtime
               td=entry.consumption
               td=entry.consumptionMpg
-              td #{entry.miles}/#{entry.kms}
-              td #{entry.gallons}/#{entry.liters}
+              td=entry.miles
+              td=entry.kms
+              td=entry.gallons
+              td=entry.liters
           //-   td 10/10/2014
           //-   td 7/100
           //-   td 34.32343

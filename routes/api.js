@@ -3,6 +3,7 @@
 var _ = require('underscore'),
   uval = require('../myutils/uvalidation.js'),
   ucrypto = require('../myutils/ucrypto.js'),
+  strForm = require('../myutils/stringFormatter.js'),
 
   User = require('../models/user.js'),
   UserCar = require('../models/usercar.js'),
@@ -43,23 +44,39 @@ exports.dashboard = function(req, res) {
 // http://en.wikipedia.org/wiki/Fuel_efficiency
 exports.consumption = function(req, res, next) {
   if (req.session.user) {
-    // we need to get list of cars for this user
+
+    // 1. We need to get list of cars for this user
     UserCar
       .find({userId: req.session.user.id})
       .populate('makeId fuelType')
-      .exec(function(err, userCarRes) {
+      .exec(function(err, userCarList) {
+
         if (err) return next(err);
 
+        var curCarReg, curCarId;
+
+        if (req.params.id) {
+          curCarReg = _.find(userCarList, function(item, i) {
+            curCarId = i;
+            return item._id.toString() === req.params.id;
+          }).reg;
+        }
+
+        if (!curCarReg) {
+          curCarReg = userCarList[0].reg;
+          curCarId = 0;
+        }
+
+        // 2. Get consumption log for the selected car
         Consumption.find({
-            reg: userCarRes[0].reg,
-            userId: userCarRes[0].userId
+            reg: curCarReg,
+            userId: req.session.user.id
+            //userId: userCarList[0].userId
           }, function(err, consRes) {
+
             if (err) return next(err);
 
-            res.render('consumption', {
-              name: req.session.user.name,
-              menu: navbar('Consumption'),
-              cars: _.map(userCarRes, function(i) {
+            var cars = _.map(userCarList, function(i) {
                 return {
                   id: i._id,
                   make: i.makeId.title,
@@ -70,10 +87,11 @@ exports.consumption = function(req, res, next) {
                   engineSize: i.engineSize,
                   reg: i.reg
                 };
-              }),
-              curCarId: 0,
-              consumptions: _.map(consRes, function(i) {
+            });
+
+            var consumptions = _.map(consRes, function(i) {
                 return {
+                  logtime: strForm.getDateStd(i.logtime),
                   kms: i.kms,
                   miles: i.miles,
                   liters: i.liters,
@@ -81,7 +99,24 @@ exports.consumption = function(req, res, next) {
                   consumption: i.consumption,
                   consumptionMpg: i.consumptionMpg
                 };
-              })
+            });
+
+            var avgConsumption = (_.reduce(consumptions, function(memo, record) {
+              return memo + record.consumption;
+            }, 0) / consumptions.length).toFixed(3);
+
+            var avgConsumptionMpg = (_.reduce(consumptions, function(memo, record) {
+              return memo + record.consumptionMpg;
+            }, 0) / consumptions.length).toFixed(3);
+
+            res.render('consumption', {
+              name: req.session.user.name,
+              menu: navbar('Consumption'),
+              cars: cars,
+              curCarId: curCarId,
+              consumptions: consumptions,
+              avgCons: avgConsumption,
+              avgConsMpg: avgConsumptionMpg
             });
 
           });
