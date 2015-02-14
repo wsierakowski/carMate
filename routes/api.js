@@ -76,6 +76,7 @@ exports.consumption = function(req, res, next) {
 
             if (err) return next(err);
 
+            // 3. Cars information mapping
             var cars = _.map(userCarList, function(i) {
                 return {
                   id: i._id,
@@ -89,6 +90,41 @@ exports.consumption = function(req, res, next) {
                 };
             });
 
+            var curSort = {
+              by: 'logtime',
+              order: 'desc'
+            };
+
+            // 4. Consumption table headers
+            var consTableHeaders = [{
+                name: "Log Time ",
+                sortBy: "logtime"
+              }, {
+                name: "Km/100 ",
+                sortBy: "km100"
+              }, {
+                name: "MPG ",
+                sortBy: "mpg"
+              }, {
+                name: "Miles ",
+                sortBy: "miles"
+              }, {
+                name: "Kms ",
+                sortBy: "kms"
+              }, {
+                name: "Gallons ",
+                sortBy: "gallons"
+              }, {
+                name: "Liters ",
+                sortBy: "liters"
+              }
+            ];
+
+            _.find(consTableHeaders, function(item) {
+              return item.sortBy === curSort.by;
+            }).order = curSort.order;
+
+            // 5. Consumption information mapping
             var consumptions = _.map(consRes, function(i) {
                 return {
                   logtime: strForm.getDateStd(i.logtime),
@@ -114,6 +150,7 @@ exports.consumption = function(req, res, next) {
               menu: navbar('Consumption'),
               cars: cars,
               curCarId: curCarId,
+              consTableHeaders: consTableHeaders,
               consumptions: consumptions,
               avgCons: avgConsumption,
               avgConsMpg: avgConsumptionMpg

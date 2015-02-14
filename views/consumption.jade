@@ -22,13 +22,22 @@ block content
       table.table.table-striped
         thead
           tr
-            th Log Time
-            th Km/100
-            th MPG
-            th Miles
-            th Kms
-            th Gallons
-            th Liters
+            each entry in consTableHeaders
+              th
+                a(href="?sortBy=" + entry.sortBy + "&order=" + (entry.order || "desc"))= entry.name
+                if entry.order
+                  - var order = (entry.order === "desc" ? "-alt" : "")
+                  span(class="glyphicon glyphicon-sort-by-attributes" + order)
+            //- th
+            //-   a(href="?sortBy=LogTime") Log Time
+            //-   span.glyphicon.glyphicon-sort-by-attributes
+            //- th
+            //-   a(href="?sortBy=km100") Km/100
+            //- th MPG
+            //- th Miles
+            //- th Kms
+            //- th Gallons
+            //- th Liters
         tbody
           each entry, i in consumptions
             tr
