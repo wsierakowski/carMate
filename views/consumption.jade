@@ -2,17 +2,20 @@ extends layout
 
 block content
   include navbar
-  - var curCar = cars[curCarId]
   .row
     .col-sm-2
       h4 Select your car:
       .list-group
         each car, i in cars
-          a.list-group-item(href="/consumption/" + car.id, class={active: i === curCarId})=car.reg
+          a.list-group-item(
+            href="/consumption/" + car.id,
+            class={active: car.active}
+          )=car.reg
         //-a.list-group-item.active(href="#") VW Passat 1.9 Diesel 99
         //-a.list-group-item(href="#") VW Golf 1.4 Petrol 04
     .col-sm-10
       span Fuel Consumption Log for:
+      - var curCar = cars[currentCar.id]
       h3 #{curCar.make} #{curCar.model} #{curCar.year.getFullYear()} #{curCar.engineSize} [#{curCar.reg}]
       //-p VW Passat 1.9 Diesel 1999 99W811
       .panel.panel-primary
@@ -24,10 +27,10 @@ block content
           tr
             each entry in consTableHeaders
               th
-                a(href="?sortBy=" + entry.sortBy + "&order=" + (entry.order || "desc"))= entry.name
-                if entry.order
-                  - var order = (entry.order === "desc" ? "-alt" : "")
-                  span(class="glyphicon glyphicon-sort-by-attributes" + order)
+                a(href="?sortBy=" + entry.sortBy + "&order=" + entry.order)= entry.name
+                if entry.activeOrder
+                  - var orderImg = (entry.activeOrder === "desc" ? "-alt" : "")
+                  span(class="glyphicon glyphicon-sort-by-attributes" + orderImg)
             //- th
             //-   a(href="?sortBy=LogTime") Log Time
             //-   span.glyphicon.glyphicon-sort-by-attributes

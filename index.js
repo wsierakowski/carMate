@@ -6,7 +6,9 @@ var http = require('http'),
     session = require('express-session'),
     mongoose = require('mongoose'),
 
-    api = require('./routes/api.js'),
+    routeApi = require('./routes/api.js'),
+    routeConsumption = require('./routes/consumption.js'),
+
     conf = require('./conf.json');
 
 /*
@@ -51,23 +53,23 @@ app.use(cookieParser('grzybniaZPatatajnia'));
 app.use(session());
 app.use(function(req, res, next){
     if (req.method === 'POST') {
-        api.clearMessages(req, res);
+        routeApi.clearMessages(req, res);
     }
     next();
 });
 
-app.get('/', api.home);
-app.get('/dashboard', api.dashboard);
-app.get('/consumption', api.consumption);
-app.get('/consumption/:id', api.consumption);
+app.get('/', routeApi.home);
+app.get('/dashboard', routeApi.dashboard);
+app.get('/consumption', routeConsumption.consumptionGet);
+app.get('/consumption/:id', routeConsumption.consumptionGet);
 
-app.get('/logout', api.logout);
+app.get('/logout', routeApi.logout);
 
-app.get('/login', api.loginGet);
-app.post('/login', api.loginPost);
+app.get('/login', routeApi.loginGet);
+app.post('/login', routeApi.loginPost);
 
-app.get('/register', api.registerGet);
-app.post('/register', api.registerPost);
+app.get('/register', routeApi.registerGet);
+app.post('/register', routeApi.registerPost);
 // app.get('/jade', api.jadeGet);
 // app.get('/jadeLogin', api.jadeLogin);
 

@@ -3,13 +3,8 @@
 var _ = require('underscore'),
   uval = require('../myutils/uvalidation.js'),
   ucrypto = require('../myutils/ucrypto.js'),
-  strForm = require('../myutils/stringFormatter.js'),
 
   User = require('../models/user.js'),
-  UserCar = require('../models/usercar.js'),
-  Car = require('../models/car.js'),
-  FuelType = require('../models/fuelType.js'),
-  Consumption = require('../models/consumption.js'),
 
   navbar = require('./navbar.js');
 
@@ -35,129 +30,6 @@ exports.dashboard = function(req, res) {
       name: req.session.user.name,
       menu: navbar()
     });
-  } else {
-    req.session.error = 'Please log in.';
-    res.redirect('/login');
-  }
-};
-
-// http://en.wikipedia.org/wiki/Fuel_efficiency
-exports.consumption = function(req, res, next) {
-  if (req.session.user) {
-
-    // 1. We need to get list of cars for this user
-    UserCar
-      .find({userId: req.session.user.id})
-      .populate('makeId fuelType')
-      .exec(function(err, userCarList) {
-
-        if (err) return next(err);
-
-        var curCarReg, curCarId;
-
-        if (req.params.id) {
-          curCarReg = _.find(userCarList, function(item, i) {
-            curCarId = i;
-            return item._id.toString() === req.params.id;
-          }).reg;
-        }
-
-        if (!curCarReg) {
-          curCarReg = userCarList[0].reg;
-          curCarId = 0;
-        }
-
-        // 2. Get consumption log for the selected car
-        Consumption.find({
-            reg: curCarReg,
-            userId: req.session.user.id
-            //userId: userCarList[0].userId
-          }, function(err, consRes) {
-
-            if (err) return next(err);
-
-            // 3. Cars information mapping
-            var cars = _.map(userCarList, function(i) {
-                return {
-                  id: i._id,
-                  make: i.makeId.title,
-                  // Finding a sub-document http://mongoosejs.com/docs/subdocs.html
-                  model: i.makeId.models.id(i.modelId).title,
-                  year: i.year,
-                  fuelType: i.fuelType._id,
-                  engineSize: i.engineSize,
-                  reg: i.reg
-                };
-            });
-
-            var curSort = {
-              by: 'logtime',
-              order: 'desc'
-            };
-
-            // 4. Consumption table headers
-            var consTableHeaders = [{
-                name: "Log Time ",
-                sortBy: "logtime"
-              }, {
-                name: "Km/100 ",
-                sortBy: "km100"
-              }, {
-                name: "MPG ",
-                sortBy: "mpg"
-              }, {
-                name: "Miles ",
-                sortBy: "miles"
-              }, {
-                name: "Kms ",
-                sortBy: "kms"
-              }, {
-                name: "Gallons ",
-                sortBy: "gallons"
-              }, {
-                name: "Liters ",
-                sortBy: "liters"
-              }
-            ];
-
-            _.find(consTableHeaders, function(item) {
-              return item.sortBy === curSort.by;
-            }).order = curSort.order;
-
-            // 5. Consumption information mapping
-            var consumptions = _.map(consRes, function(i) {
-                return {
-                  logtime: strForm.getDateStd(i.logtime),
-                  kms: i.kms,
-                  miles: i.miles,
-                  liters: i.liters,
-                  gallons: i.gallons,
-                  consumption: i.consumption,
-                  consumptionMpg: i.consumptionMpg
-                };
-            });
-
-            var avgConsumption = (_.reduce(consumptions, function(memo, record) {
-              return memo + record.consumption;
-            }, 0) / consumptions.length).toFixed(3);
-
-            var avgConsumptionMpg = (_.reduce(consumptions, function(memo, record) {
-              return memo + record.consumptionMpg;
-            }, 0) / consumptions.length).toFixed(3);
-
-            res.render('consumption', {
-              name: req.session.user.name,
-              menu: navbar('Consumption'),
-              cars: cars,
-              curCarId: curCarId,
-              consTableHeaders: consTableHeaders,
-              consumptions: consumptions,
-              avgCons: avgConsumption,
-              avgConsMpg: avgConsumptionMpg
-            });
-
-          });
-      });
   } else {
     req.session.error = 'Please log in.';
     res.redirect('/login');
