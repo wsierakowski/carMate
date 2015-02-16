@@ -10,15 +10,18 @@ var _ = require('underscore'),
   navbar = require('./navbar.js');
   strForm = require('../myutils/stringFormatter.js');
 
+// defaults
+var CONSUM_LIMIT_PER_PAGE = 2;
+
 // Consumption table headers
-var consTableHeaders = [{
+var CONSUM_TABLE_HEADERS = [{
     name: "Log Time ",
     sortBy: "logtime"
   }, {
     name: "Km/100 ",
     sortBy: "consumption"
   }, {
-    name: "MPG ",
+    name: "Mpg ",
     sortBy: "consumptionMpg"
   }, {
     name: "Miles ",
@@ -43,10 +46,25 @@ exports.consumptionGet = function(req, res, next) {
       name: req.session.user.name,
       menu: navbar('Consumption'),
       // deep clone as we are going to modify object in a minute...
-      consTableHeaders: _.map(consTableHeaders, function(item) {
+      consumTableHeaders: _.map(CONSUM_TABLE_HEADERS, function(item) {
         return {name: item.name, sortBy: item.sortBy, order: 'desc'};
       })
     };
+
+    // If there is more than just one car, the the user has a choice.
+    // By default the first one return will be picked.
+    var currentCar = {
+      reg: null,
+      id: 0
+    };
+
+    // By default consumption results will be sorted by logtime column descending.
+    var activeHeaderSort = {
+      field: CONSUM_TABLE_HEADERS[0].sortBy,
+      order: req.query.order ? req.query.order : 'desc'
+    };
+
+    var consumTablePage = req.query.page ? req.query.page : 1;
 
     // 1. We need to get list of cars for this user
     UserCar
@@ -56,12 +74,8 @@ exports.consumptionGet = function(req, res, next) {
 
         if (err) return next(err);
 
-        // If there is more than just one car, the the user has a choice.
-        // By default the first one return will be picked.
-        var currentCar = {
-          reg: userCarList[0].reg,
-          id: 0
-        };
+        // TODO check what if there is no cars for that user
+        currentCar.reg = userCarList[0].reg;
 
         // If car id was returned as a param then this car will be the current car.
         if (req.params.id) {
@@ -76,22 +90,16 @@ exports.consumptionGet = function(req, res, next) {
 
         renderData.currentCar = currentCar;
 
-        // By default consumption results will be sorted by logtime column descending.
-        var activeHeaderSort = {
-          field: consTableHeaders[0].sortBy,
-          order: req.query.order ? req.query.order : 'desc'
-        };
-
         // If sortBy was passed by parameter then use this as sorting criteria.
         // Make sure such a sortBy field exists.
         if (req.query.sortBy &&
-          _.some(consTableHeaders, function(item) {
+          _.some(CONSUM_TABLE_HEADERS, function(item) {
             return req.query.sortBy === item.sortBy;
           })) {
           activeHeaderSort.field = req.query.sortBy;
         }
 
-        var header = _.find(renderData.consTableHeaders, function(item) {
+        var header = _.find(renderData.consumTableHeaders, function(item) {
           return item.sortBy === activeHeaderSort.field;
         });
         header.activeOrder = activeHeaderSort.order;
@@ -104,55 +112,72 @@ exports.consumptionGet = function(req, res, next) {
         var sortObj = {};
         sortObj[activeHeaderSort.field] =  activeHeaderSort.order === 'desc' ? -1 : 1;
 
+        var consumCount;
+
+        // One query construct, two requests.
         Consumption
-          .find({
+          .count()
+          .where({
             reg: currentCar.reg,
             userId: req.session.user.id
-            //userId: userCarList[0].userId
           })
-          //ex: '-logtime' //Sort by logtime desc
-          .sort(sortObj)
-          .exec(function(err, consRes) {
-
+          .exec(function(err, count) {
             if (err) return next(err);
+            consumCount = count;
+            console.log('1. count', count);
 
-            // 3. Cars information mapping
-            renderData.cars = _.map(userCarList, function(item, index) {
-                return {
-                  id: item._id,
-                  make: item.makeId.title,
-                  // Finding a sub-document http://mongoosejs.com/docs/subdocs.html
-                  model: item.makeId.models.id(item.modelId).title,
-                  year: item.year,
-                  fuelType: item.fuelType._id,
-                  engineSize: item.engineSize,
-                  reg: item.reg,
-                  active: index === currentCar.id
-                };
-            });
+            Consumption
+              .find()
+              .where({
+                reg: currentCar.reg,
+                userId: req.session.user.id
+              })
+              //ex: '-logtime' //Sort by logtime desc
+              .sort(sortObj)
+              //.skip()
+              //.limit()
+              .exec(function(err, consRes) {
 
-            // 4. Consumption information mapping
-            renderData.consumptions = _.map(consRes, function(i) {
-                return {
-                  logtime: strForm.getDateStd(i.logtime),
-                  kms: i.kms,
-                  miles: i.miles,
-                  liters: i.liters,
-                  gallons: i.gallons,
-                  consumption: i.consumption,
-                  consumptionMpg: i.consumptionMpg
-                };
-            });
+                if (err) return next(err);
 
-            renderData.avgCons = (_.reduce(consRes, function(memo, record) {
-              return memo + record.consumption;
-            }, 0) / consRes.length).toFixed(3);
+                // 3. Cars information mapping
+                renderData.cars = _.map(userCarList, function(item, index) {
+                    return {
+                      id: item._id,
+                      make: item.makeId.title,
+                      // Finding a sub-document http://mongoosejs.com/docs/subdocs.html
+                      model: item.makeId.models.id(item.modelId).title,
+                      year: item.year,
+                      fuelType: item.fuelType._id,
+                      engineSize: item.engineSize,
+                      reg: item.reg,
+                      active: index === currentCar.id
+                    };
+                });
 
-            renderData.avgConsMpg = (_.reduce(consRes, function(memo, record) {
-              return memo + record.consumptionMpg;
-            }, 0) / consRes.length).toFixed(3);
+                // 4. Consumption information mapping
+                renderData.consumptions = _.map(consRes, function(i) {
+                    return {
+                      logtime: strForm.getDateStd(i.logtime),
+                      kms: i.kms,
+                      miles: i.miles,
+                      liters: i.liters,
+                      gallons: i.gallons,
+                      consumption: i.consumption,
+                      consumptionMpg: i.consumptionMpg
+                    };
+                });
 
-            res.render('consumption', renderData);
+                renderData.avgCons = (_.reduce(consRes, function(memo, record) {
+                  return memo + record.consumption;
+                }, 0) / consRes.length).toFixed(3);
+
+                renderData.avgConsMpg = (_.reduce(consRes, function(memo, record) {
+                  return memo + record.consumptionMpg;
+                }, 0) / consRes.length).toFixed(3);
+
+                res.render('consumption', renderData);
+              });
           });
       });
   } else {

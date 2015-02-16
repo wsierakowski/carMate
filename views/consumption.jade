@@ -25,7 +25,7 @@ block content
       table.table.table-striped
         thead
           tr
-            each entry in consTableHeaders
+            each entry in consumTableHeaders
               th
                 a(href="?sortBy=" + entry.sortBy + "&order=" + entry.order)= entry.name
                 if entry.activeOrder
@@ -68,3 +68,19 @@ block content
           //-   td 34.32343
           //-   td 4342/432434
           //-   td 434/4344
+      nav
+        ul.pagination
+          li.prev.disabled
+            a(href="#") Prev
+          li
+            a(href="#") 1
+          li
+            a(href="#") 2
+          li.disabled
+            a(href="#") ...
+          li
+            a(href="#") 4
+          li
+            a(href="#") 5
+          li.next
+            a(href="#") Next
