@@ -7,14 +7,17 @@ var _ = require('underscore'),
   FuelType = require('../models/fuelType.js'),
   Consumption = require('../models/consumption.js'),
 
-  navbar = require('./navbar.js');
-  strForm = require('../myutils/stringFormatter.js');
+  navbar = require('./navbar.js'),
+  strForm = require('../myutils/stringFormatter.js'),
+
+  paginator = require('../myutils/paginator.js');
 
 // defaults
-var CONSUM_LIMIT_PER_PAGE = 2;
+var CONSUM_PER_PAGE = 10,
+    CONSUM_BUTTON_NUM = 5,
 
 // Consumption table headers
-var CONSUM_TABLE_HEADERS = [{
+    CONSUM_TABLE_HEADERS = [{
     name: "Log Time ",
     sortBy: "logtime"
   }, {

@@ -1,4 +1,18 @@
-var _ = require('underscore');
+/**
+ * @author
+ * Usage:
+ * require('./myutils/paginator.js')(6, 35, 5, 5);
+ *
+ * Returns:
+ * [
+ *  { currentPage: 6, totalPages: 7, next: true, previous: true },
+ *  { name: '3', disabled: false },
+ *  { name: '4', disabled: false },
+ *  { name: '5', disabled: false },
+ *  { name: '6', disabled: true },
+ *  { name: '7', disabled: false }
+ * ]
+ */
 
 module.exports = function(curPage, totalCount, itemsPerPage, buttonsNum){
 
@@ -7,6 +21,9 @@ module.exports = function(curPage, totalCount, itemsPerPage, buttonsNum){
     var res = [], i;
 
     var pagesNum = Math.ceil(totalCount / itemsPerPage);
+
+    if (curPage > pagesNum) curPage = pagesNum;
+    if (curPage < 1) curPage = 1;
 
     // If there is less pages than buttons
     if (itemsPerPage >= pagesNum) {
@@ -22,16 +39,14 @@ module.exports = function(curPage, totalCount, itemsPerPage, buttonsNum){
     var buttonsOnSide = Math.floor(buttonsNum / 2);
     var shiftBy = 0;
 
-    var leftCheck = curPage - buttonsOnSide;
-    if (leftCheck <= 0) shiftBy = -1 * leftCheck + 1;
+    var distanceLeft = curPage - buttonsOnSide;
+    if (distanceLeft <= 0) shiftBy = -distanceLeft + 1;
 
-    var rightCheck = curPage + buttonsOnSide;
-    console.log(rightCheck, pagesNum);
-    if (rightCheck > pagesNum) {
-        shiftBy = -(rightCheck - pagesNum);
+    var distanceRight = curPage + buttonsOnSide;
+
+    if (distanceRight > pagesNum) {
+        shiftBy = -(distanceRight - pagesNum);
     }
-
-    console.log('shiftBy:', shiftBy);
 
     var startPos = curPage + shiftBy - buttonsOnSide;
     for (i = startPos; i < startPos + itemsPerPage; i++) {
@@ -41,11 +56,21 @@ module.exports = function(curPage, totalCount, itemsPerPage, buttonsNum){
         });
     }
 
+    var summary = {
+        currentPage: curPage,
+        totalPages: pagesNum,
+        next: !res[0].disabled,
+        previous: !res[res.length - 1].disabled
+    };
+
+    res.unshift(summary);
+
     return res;
 };
 
 
 /*
+
 itemsPerPage = 5;
 pagesNum = 7;
 totalCount = 35;
@@ -57,12 +82,6 @@ curPage = 3;
 
     x
                     x
-
-===================
-var paginator = require('./myutils/paginator.js')(2, 7, 5, 5);
-paginator(2, 7, 5, 5)
-
-require('./myutils/paginator.js')(1, 35, 5, 5);
 
  */
 
