@@ -1,71 +1,85 @@
 /**
- * @author
- * Usage:
- * require('./myutils/paginator.js')(6, 35, 5, 5);
+ * @author  sigman@20150218
  *
- * Returns:
- * [
- *  { currentPage: 6, totalPages: 7, next: true, previous: true },
- *  { name: '3', disabled: false },
- *  { name: '4', disabled: false },
- *  { name: '5', disabled: false },
- *  { name: '6', disabled: true },
- *  { name: '7', disabled: false }
- * ]
+ * Manages pagination buttons, optimized for twitter bootstrap.
+ *
+ * For constructor:
+ * @param {Number} itemsPerPage
+ * @param {Number} buttonNum
+ *
+ * To calculate pagination:
+ * @param {Number} curPage
+ * @param {Number} totalCount
+ *
+ * @example:
+ * require('./myutils/paginator.js')(5, 5)(6, 35);
+ *
+ * @returns
+ * {
+ *   summary: { currentPage: 6, totalPages: 7, next: true, previous: true },
+ *   pagination: [
+ *    { name: '3', disabled: false },
+ *    { name: '4', disabled: false },
+ *    { name: '5', disabled: false },
+ *    { name: '6', disabled: true },
+ *    { name: '7', disabled: false }
+ *   ]
+ * }
  */
 
-module.exports = function(curPage, totalCount, itemsPerPage, buttonsNum){
+module.exports = function(itemsPerPage, buttonsNum) {
 
-    // TODO: cleanup and validation
+    return function(curPage, totalCount) {
 
-    var res = [], i;
+        var i, pagesNum = Math.ceil(totalCount / itemsPerPage);
 
-    var pagesNum = Math.ceil(totalCount / itemsPerPage);
+        if (curPage > pagesNum) curPage = pagesNum;
+        if (curPage < 1) curPage = 1;
 
-    if (curPage > pagesNum) curPage = pagesNum;
-    if (curPage < 1) curPage = 1;
+        var ret = {
+            pagination: []
+        };
 
-    // If there is less pages than buttons
-    if (itemsPerPage >= pagesNum) {
-        for (i = 1; i <= pagesNum; i++) {
-            res.push({
-                name: i.toString(),
-                disabled: i === curPage
-            });
+        // If there is less pages than buttons
+        if (buttonsNum >= pagesNum) {
+            for (i = 1; i <= pagesNum; i++) {
+                ret.pagination.push({
+                    name: i.toString(),
+                    disabled: i === curPage
+                });
+            }
+        } else {
+            var buttonsOnSide = Math.floor(buttonsNum / 2);
+            var shiftBy = 0;
+
+            var distanceLeft = curPage - buttonsOnSide;
+            if (distanceLeft <= 0) shiftBy = -distanceLeft + 1;
+
+            var distanceRight = curPage + buttonsOnSide;
+
+            if (distanceRight > pagesNum) {
+                shiftBy = -(distanceRight - pagesNum);
+            }
+
+            var startPos = curPage + shiftBy - buttonsOnSide;
+            for (i = startPos; i < startPos + buttonsNum; i++) {
+                ret.pagination.push({
+                    name: i.toString(),
+                    disabled: i === curPage
+                });
+            }
         }
-        return res;
-    }
 
-    var buttonsOnSide = Math.floor(buttonsNum / 2);
-    var shiftBy = 0;
 
-    var distanceLeft = curPage - buttonsOnSide;
-    if (distanceLeft <= 0) shiftBy = -distanceLeft + 1;
+        ret.summary = {
+            currentPage: curPage,
+            totalPages: pagesNum,
+            previous: !ret.pagination[0].disabled,
+            next: !ret.pagination[ret.pagination.length - 1].disabled
+        };
 
-    var distanceRight = curPage + buttonsOnSide;
-
-    if (distanceRight > pagesNum) {
-        shiftBy = -(distanceRight - pagesNum);
-    }
-
-    var startPos = curPage + shiftBy - buttonsOnSide;
-    for (i = startPos; i < startPos + itemsPerPage; i++) {
-        res.push({
-            name: i.toString(),
-            disabled: i === curPage
-        });
-    }
-
-    var summary = {
-        currentPage: curPage,
-        totalPages: pagesNum,
-        next: !res[0].disabled,
-        previous: !res[res.length - 1].disabled
+        return ret;
     };
-
-    res.unshift(summary);
-
-    return res;
 };
 
 

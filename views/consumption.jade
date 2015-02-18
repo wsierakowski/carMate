@@ -11,13 +11,10 @@ block content
             href="/consumption/" + car.id,
             class={active: car.active}
           )=car.reg
-        //-a.list-group-item.active(href="#") VW Passat 1.9 Diesel 99
-        //-a.list-group-item(href="#") VW Golf 1.4 Petrol 04
     .col-sm-10
       span Fuel Consumption Log for:
       - var curCar = cars[currentCar.id]
       h3 #{curCar.make} #{curCar.model} #{curCar.year.getFullYear()} #{curCar.engineSize} [#{curCar.reg}]
-      //-p VW Passat 1.9 Diesel 1999 99W811
       .panel.panel-primary
         .panel-heading
           h3.panel-title Average Consumption
@@ -31,16 +28,6 @@ block content
                 if entry.activeOrder
                   - var orderImg = (entry.activeOrder === "desc" ? "-alt" : "")
                   span(class="glyphicon glyphicon-sort-by-attributes" + orderImg)
-            //- th
-            //-   a(href="?sortBy=LogTime") Log Time
-            //-   span.glyphicon.glyphicon-sort-by-attributes
-            //- th
-            //-   a(href="?sortBy=km100") Km/100
-            //- th MPG
-            //- th Miles
-            //- th Kms
-            //- th Gallons
-            //- th Liters
         tbody
           each entry, i in consumptions
             tr
@@ -51,36 +38,12 @@ block content
               td=entry.kms
               td=entry.gallons
               td=entry.liters
-          //-   td 10/10/2014
-          //-   td 7/100
-          //-   td 34.32343
-          //-   td 4342/432434
-          //-   td 434/4344
-          //- tr
-          //-   td 10/10/2014
-          //-   td 7/100
-          //-   td 34.32343
-          //-   td 4342/432434
-          //-   td 434/4344
-          //- tr
-          //-   td 10/10/2014
-          //-   td 7/100
-          //-   td 34.32343
-          //-   td 4342/432434
-          //-   td 434/4344
       nav
         ul.pagination
-          li.prev.disabled
+          li.prev(class={disabled: !consumPagination.summary.previous})
             a(href="#") Prev
-          li
-            a(href="#") 1
-          li
-            a(href="#") 2
-          li.disabled
-            a(href="#") ...
-          li
-            a(href="#") 4
-          li
-            a(href="#") 5
-          li.next
+          each page in consumPagination.pagination
+            li(class={disabled: page.disabled})
+              a(href="#")= page.name
+          li.next(class={disabled: !consumPagination.summary.next})
             a(href="#") Next

@@ -41,6 +41,8 @@ var CONSUM_PER_PAGE = 10,
   }
 ];
 
+var consumPaginator = paginator(CONSUM_PER_PAGE, CONSUM_BUTTON_NUM);
+
 exports.consumptionGet = function(req, res, next) {
   if (req.session.user) {
 
@@ -66,8 +68,6 @@ exports.consumptionGet = function(req, res, next) {
       field: CONSUM_TABLE_HEADERS[0].sortBy,
       order: req.query.order ? req.query.order : 'desc'
     };
-
-    var consumTablePage = req.query.page ? req.query.page : 1;
 
     // 1. We need to get list of cars for this user
     UserCar
@@ -115,8 +115,6 @@ exports.consumptionGet = function(req, res, next) {
         var sortObj = {};
         sortObj[activeHeaderSort.field] =  activeHeaderSort.order === 'desc' ? -1 : 1;
 
-        var consumCount;
-
         // One query construct, two requests.
         Consumption
           .count()
@@ -126,8 +124,15 @@ exports.consumptionGet = function(req, res, next) {
           })
           .exec(function(err, count) {
             if (err) return next(err);
-            consumCount = count;
+
+            var consumCount = count,
+                consumPage = req.query.page ? req.query.page : 1;
             console.log('1. count', count);
+
+            renderData.consumPagination = consumPaginator(consumPage, consumCount);
+            // Paginator may adjust the page so read it again
+            consumPage = renderData.consumPagination.summary.currentPage;
+            console.log('----->', renderData.consumPagination);
 
             Consumption
               .find()
@@ -137,8 +142,8 @@ exports.consumptionGet = function(req, res, next) {
               })
               //ex: '-logtime' //Sort by logtime desc
               .sort(sortObj)
-              //.skip()
-              //.limit()
+              .skip(CONSUM_PER_PAGE * consumPage)
+              .limit(CONSUM_PER_PAGE)
               .exec(function(err, consRes) {
 
                 if (err) return next(err);
