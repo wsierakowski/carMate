@@ -43,9 +43,9 @@ block content
       nav
         ul.pagination
           li.prev(class={disabled: !consumPagination.summary.previous})
-            a(href="#") Prev
+            a(href="?sortBy=" + consumHead.activeColumn.sortBy + "&order=" + consumHead.activeColumn.order + "&page=" + consumPagination.pagination[0].name) Prev
           each page in consumPagination.pagination
             li(class={disabled: page.disabled})
-              a(href="#")= page.name
+              a(href="?sortBy=" + consumHead.activeColumn.sortBy + "&order=" + consumHead.activeColumn.order + "&page=" + page.name)= page.name
           li.next(class={disabled: !consumPagination.summary.next})
-            a(href="#") Next
+            a(href="?sortBy=" + consumHead.activeColumn.sortBy + "&order=" + consumHead.activeColumn.order + "&page=" + consumPagination.pagination[consumPagination.pagination.length - 1].name) Next

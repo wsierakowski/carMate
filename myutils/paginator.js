@@ -74,6 +74,9 @@ module.exports = function(itemsPerPage, buttonsNum) {
         ret.summary = {
             currentPage: curPage,
             totalPages: pagesNum,
+            prevPage: curPage - 1,
+            nextPage: curPage + 1,
+            // TODO: this is not really prev and next, need fix
             previous: !ret.pagination[0].disabled,
             next: !ret.pagination[ret.pagination.length - 1].disabled
         };

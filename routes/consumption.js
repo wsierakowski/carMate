@@ -140,14 +140,12 @@ exports.consumptionGet = function(req, res, next) {
             if (err) return next(err);
 
             var consumCount = count,
-                consumPage = req.query.page ? req.query.page : 1;
+                consumPage = req.query.page ? parseInt(req.query.page) : 1;
             console.log('1. count', count);
 
             renderData.consumPagination = consumPaginator(consumPage, consumCount);
             // Paginator may adjust the page so read it again
             consumPage = renderData.consumPagination.summary.currentPage;
-            console.log('---1-->', renderData.consumPagination);
-            console.log('---2-->', sortObj);
 
             Consumption
               .find()
@@ -158,7 +156,7 @@ exports.consumptionGet = function(req, res, next) {
               //ex: '{logtime: -1}' //Sort by logtime desc
               .sort(sortObj)
               //TODO: skip should be 0 or 1?
-              .skip(CONSUM_PER_PAGE * consumPage)
+              .skip(CONSUM_PER_PAGE * (consumPage - 1))
               .limit(CONSUM_PER_PAGE)
               .exec(function(err, consList) {
 
