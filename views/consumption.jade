@@ -6,30 +6,32 @@ block content
     .col-sm-2
       h4 Select your car:
       .list-group
-        each car, i in cars
+        each car, i in cars.data
           a.list-group-item(
             href="/consumption/" + car.id,
             class={active: car.active}
           )=car.reg
     .col-sm-10
       span Fuel Consumption Log for:
-      - var curCar = cars[currentCar.id]
+      - var curCar = cars.data[cars.currentCar.id]
       h3 #{curCar.make} #{curCar.model} #{curCar.year.getFullYear()} #{curCar.engineSize} [#{curCar.reg}]
       .panel.panel-primary
         .panel-heading
           h3.panel-title Average Consumption
-        .panel-body #{avgCons}km/h #{avgConsMpg}mpg
+        .panel-body #{consumptions.avgCons}km/h #{consumptions.avgConsMpg}mpg
       table.table.table-striped
         thead
           tr
-            each entry in consumTableHeaders
+            each entry in consumHead.data
               th
-                a(href="?sortBy=" + entry.sortBy + "&order=" + entry.order)= entry.name
-                if entry.activeOrder
-                  - var orderImg = (entry.activeOrder === "desc" ? "-alt" : "")
+                if entry.sortBy === consumHead.activeColumn.sortBy
+                  - var orderImg = (consumHead.activeColumn.order === -1 ? "-alt" : "")
+                  a(href="?sortBy=" + entry.sortBy + "&order=" + (-consumHead.activeColumn.order))= entry.name
                   span(class="glyphicon glyphicon-sort-by-attributes" + orderImg)
+                else
+                  a(href="?sortBy=" + entry.sortBy + "&order=" + consumHead.defaultOrder)= entry.name
         tbody
-          each entry, i in consumptions
+          each entry, i in consumptions.data
             tr
               td=entry.logtime
               td=entry.consumption

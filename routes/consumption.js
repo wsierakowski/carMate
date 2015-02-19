@@ -46,28 +46,45 @@ var consumPaginator = paginator(CONSUM_PER_PAGE, CONSUM_BUTTON_NUM);
 exports.consumptionGet = function(req, res, next) {
   if (req.session.user) {
 
-    // The data we will render at the end.
+    ////////////////////////////////////////////
+    // This is what we send to render for jade.
+    ////////////////////////////////////////////
+
     var renderData = {
-      name: req.session.user.name,
+      userName: req.session.user.name,
       menu: navbar('Consumption'),
-      // deep clone as we are going to modify object in a minute...
-      consumTableHeaders: _.map(CONSUM_TABLE_HEADERS, function(item) {
-        return {name: item.name, sortBy: item.sortBy, order: 'desc'};
-      })
+
+      // If there is more than just one car, the the user has a choice.
+      // By default the first one return will be picked.
+      cars: {
+        currentCar: {reg: null, id: 0},
+        data: null
+      },
+
+      // Deep clone as we are going to modify object in a minute...
+      consumHead: {
+        defaultOrder: -1,
+        data: _.map(CONSUM_TABLE_HEADERS, function(item) {
+          return {name: item.name, sortBy: item.sortBy};
+        }),
+        // By default consumption results will be sorted by logtime column descending.
+        activeColumn: {
+          sortBy: CONSUM_TABLE_HEADERS[0].sortBy,
+          order: -1
+        }
+      },
+
+      // Consumption data to populate the table
+      consumptions: {
+        data: null,
+        avgCons: null,
+        avgConsMpg: null
+      },
+
+      consumPagination: null
     };
 
-    // If there is more than just one car, the the user has a choice.
-    // By default the first one return will be picked.
-    var currentCar = {
-      reg: null,
-      id: 0
-    };
-
-    // By default consumption results will be sorted by logtime column descending.
-    var activeHeaderSort = {
-      field: CONSUM_TABLE_HEADERS[0].sortBy,
-      order: req.query.order ? req.query.order : 'desc'
-    };
+    ////////////////////////////////////////////
 
     // 1. We need to get list of cars for this user
     UserCar
@@ -78,48 +95,45 @@ exports.consumptionGet = function(req, res, next) {
         if (err) return next(err);
 
         // TODO check what if there is no cars for that user
-        currentCar.reg = userCarList[0].reg;
+        renderData.cars.currentCar.reg = userCarList[0].reg;
 
         // If car id was returned as a param then this car will be the current car.
+        // If car from the url param doesn't exists then stay with defaults.
         if (req.params.id) {
           // bit hacky way to get the reg and populate id
-          currentCar.reg = _.find(userCarList, function(item, i) {
-            if (item._id.toString() === req.params.id) {
-              currentCar.id = i;
-              return true;
-            }
-          }).reg;
+          _.find(userCarList, function(item, i) {
+              if (item._id.toString() === req.params.id) {
+                renderData.currentCar.reg = userCar.reg;
+                renderData.currentCar.id = i;
+                return true;
+              }
+            });
         }
-
-        renderData.currentCar = currentCar;
 
         // If sortBy was passed by parameter then use this as sorting criteria.
         // Make sure such a sortBy field exists.
         if (req.query.sortBy &&
-          _.some(CONSUM_TABLE_HEADERS, function(item) {
-            return req.query.sortBy === item.sortBy;
-          })) {
-          activeHeaderSort.field = req.query.sortBy;
+            _.some(CONSUM_TABLE_HEADERS, function(item) {
+              return req.query.sortBy === item.sortBy;
+            })
+          ) {
+          renderData.consumHead.activeColumn.sortBy = req.query.sortBy;
+          var order = parseInt(req.query.order);
+          if (_.isNumber(order) && Math.abs(order) === 1) {
+            renderData.consumHead.activeColumn.order = order;
+          }
         }
-
-        var header = _.find(renderData.consumTableHeaders, function(item) {
-          return item.sortBy === activeHeaderSort.field;
-        });
-        header.activeOrder = activeHeaderSort.order;
-        // If current order for the selected column is 'desc' then the link should
-        // trigger 'asc'.
-        header.order = activeHeaderSort.order === 'desc' ? 'asc' : 'desc';
-        //renderData.activeHeaderSort = activeHeaderSort;
 
         // 2. Get consumption log for the selected car
         var sortObj = {};
-        sortObj[activeHeaderSort.field] =  activeHeaderSort.order === 'desc' ? -1 : 1;
+        sortObj[renderData.consumHead.activeColumn.sortBy] =
+          renderData.consumHead.activeColumn.order;
 
         // One query construct, two requests.
         Consumption
           .count()
           .where({
-            reg: currentCar.reg,
+            reg: renderData.cars.currentCar.reg,
             userId: req.session.user.id
           })
           .exec(function(err, count) {
@@ -132,24 +146,26 @@ exports.consumptionGet = function(req, res, next) {
             renderData.consumPagination = consumPaginator(consumPage, consumCount);
             // Paginator may adjust the page so read it again
             consumPage = renderData.consumPagination.summary.currentPage;
-            console.log('----->', renderData.consumPagination);
+            console.log('---1-->', renderData.consumPagination);
+            console.log('---2-->', sortObj);
 
             Consumption
               .find()
               .where({
-                reg: currentCar.reg,
+                reg: renderData.cars.currentCar.reg,
                 userId: req.session.user.id
               })
-              //ex: '-logtime' //Sort by logtime desc
+              //ex: '{logtime: -1}' //Sort by logtime desc
               .sort(sortObj)
+              //TODO: skip should be 0 or 1?
               .skip(CONSUM_PER_PAGE * consumPage)
               .limit(CONSUM_PER_PAGE)
-              .exec(function(err, consRes) {
+              .exec(function(err, consList) {
 
                 if (err) return next(err);
 
                 // 3. Cars information mapping
-                renderData.cars = _.map(userCarList, function(item, index) {
+                renderData.cars.data = _.map(userCarList, function(item, index) {
                     return {
                       id: item._id,
                       make: item.makeId.title,
@@ -159,12 +175,12 @@ exports.consumptionGet = function(req, res, next) {
                       fuelType: item.fuelType._id,
                       engineSize: item.engineSize,
                       reg: item.reg,
-                      active: index === currentCar.id
+                      active: index === renderData.cars.currentCar.id
                     };
                 });
 
                 // 4. Consumption information mapping
-                renderData.consumptions = _.map(consRes, function(i) {
+                renderData.consumptions.data = _.map(consList, function(i) {
                     return {
                       logtime: strForm.getDateStd(i.logtime),
                       kms: i.kms,
@@ -176,13 +192,13 @@ exports.consumptionGet = function(req, res, next) {
                     };
                 });
 
-                renderData.avgCons = (_.reduce(consRes, function(memo, record) {
+                renderData.consumptions.avgCons = (_.reduce(consList, function(memo, record) {
                   return memo + record.consumption;
-                }, 0) / consRes.length).toFixed(3);
+                }, 0) / consList.length).toFixed(3);
 
-                renderData.avgConsMpg = (_.reduce(consRes, function(memo, record) {
+                renderData.consumptions.avgConsMpg = (_.reduce(consList, function(memo, record) {
                   return memo + record.consumptionMpg;
-                }, 0) / consRes.length).toFixed(3);
+                }, 0) / consList.length).toFixed(3);
 
                 res.render('consumption', renderData);
               });
