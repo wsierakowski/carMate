@@ -37,14 +37,15 @@ block content
       table.table.table-striped
         thead
           tr
+            - var pageQueryParam = "&page=" + consumPagination.summary.currentPage;
             each entry in consumHead.data
               th
                 if entry.sortBy === consumHead.activeColumn.sortBy
                   - var orderImg = (consumHead.activeColumn.order === -1 ? "-alt" : "")
-                  a(href="?sortBy=" + entry.sortBy + "&order=" + (-consumHead.activeColumn.order))= entry.name
+                  a(href="?sortBy=" + entry.sortBy + "&order=" + (-consumHead.activeColumn.order) + pageQueryParam)= entry.name
                   span(class="glyphicon glyphicon-sort-by-attributes" + orderImg)
                 else
-                  a(href="?sortBy=" + entry.sortBy + "&order=" + consumHead.defaultOrder)= entry.name
+                  a(href="?sortBy=" + entry.sortBy + "&order=" + consumHead.defaultOrder + pageQueryParam)= entry.name
         tbody
           each entry, i in consumptions.data
             tr
@@ -62,21 +63,40 @@ block content
 
       nav
         ul.pagination
-          li.prev(class={disabled: !!!consumPagination.summary.prevPage})
-            if (consumPagination.summary.prevPage)
-              a(href="?sortBy=" + consumHead.activeColumn.sortBy + "&order=" + consumHead.activeColumn.order + "&page=" + consumPagination.summary.prevPage) Prev
+          - var sortQueryParams = "&sortBy=" + consumHead.activeColumn.sortBy + "&order=" + consumHead.activeColumn.order;
+
+          - var firstPageAvailable = consumPagination.summary.currentPage != 1
+          li.first(class={disabled: !firstPageAvailable})
+            if (firstPageAvailable)
+              a(href="?page=1" + sortQueryParams) First
+            else
+              span First
+
+          - var prevPageAvailable = !!consumPagination.summary.prevPage
+          li.prev(class={disabled: !prevPageAvailable})
+            if (prevPageAvailable)
+              a(href="?page=" + consumPagination.summary.prevPage + sortQueryParams) Prev
             else
               span Prev
 
           each page in consumPagination.pagination
             li(class={disabled: page.disabled})
               if (!page.disabled)
-                a(href="?sortBy=" + consumHead.activeColumn.sortBy + "&order=" + consumHead.activeColumn.order + "&page=" + page.name)= page.name
+                a(href="?page=" + page.name + sortQueryParams)= page.name
               else
-                span= page.name
+                span
+                  strong= page.name
 
-          li.next(class={disabled: !!!consumPagination.summary.nextPage})
-            if (consumPagination.summary.nextPage)
-              a(href="?sortBy=" + consumHead.activeColumn.sortBy + "&order=" + consumHead.activeColumn.order + "&page=" + consumPagination.summary.nextPage) Next
+          - var nextPageAvailable = !!consumPagination.summary.nextPage
+          li.next(class={disabled: !nextPageAvailable})
+            if (nextPageAvailable)
+              a(href="?page=" + consumPagination.summary.nextPage + sortQueryParams) Next
             else
               span Next
+
+          - var lastPageAvailable = consumPagination.summary.currentPage != consumPagination.summary.pagesNumber
+          li.first(class={disabled: !lastPageAvailable})
+            if (lastPageAvailable)
+              a(href="?page=" + consumPagination.summary.pagesNumber + sortQueryParams) Last
+            else
+              span Last
