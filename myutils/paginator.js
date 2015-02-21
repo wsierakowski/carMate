@@ -12,17 +12,27 @@
  * @param {Number} totalCount
  *
  * @example:
+ * require('./myutils/paginator.js')(itemsPerPage, buttonsNum)(curPage, totalCount);
+ *
  * require('./myutils/paginator.js')(5, 5)(6, 35);
  *
  * @returns
  * {
- *   summary: { currentPage: 6, totalPages: 7, next: true, previous: true },
+ *   summary: {
+ *     itemsPerPage: 5,
+ *     buttonsNumber: 5,
+ *     totalCount: 35,
+ *     currentPage: 6,
+ *     pagesNumber: 7,
+ *     prevPage: 5,
+ *     nextPage: 7
+  *  },
  *   pagination: [
- *    { name: '3', disabled: false },
- *    { name: '4', disabled: false },
- *    { name: '5', disabled: false },
- *    { name: '6', disabled: true },
- *    { name: '7', disabled: false }
+ *     { name: 3, disabled: false },
+ *     { name: 4, disabled: false },
+ *     { name: 5, disabled: false },
+ *     { name: 6, disabled: true },
+ *     { name: 7, disabled: false }
  *   ]
  * }
  */
@@ -31,7 +41,7 @@ module.exports = function(itemsPerPage, buttonsNum) {
 
     return function(curPage, totalCount) {
 
-        var i, pagesNum = Math.ceil(totalCount / itemsPerPage);
+        var i, pagesNum = Math.floor(totalCount / itemsPerPage);
 
         if (curPage > pagesNum) curPage = pagesNum;
         if (curPage < 1) curPage = 1;
@@ -70,15 +80,14 @@ module.exports = function(itemsPerPage, buttonsNum) {
             }
         }
 
-
         ret.summary = {
+            itemsPerPage: itemsPerPage,
+            buttonsNumber: buttonsNum,
+            totalCount: totalCount,
             currentPage: curPage,
-            totalPages: pagesNum,
-            prevPage: curPage - 1,
-            nextPage: curPage + 1,
-            // TODO: this is not really prev and next, need fix
-            previous: !ret.pagination[0].disabled,
-            next: !ret.pagination[ret.pagination.length - 1].disabled
+            pagesNumber: pagesNum,
+            prevPage: curPage === 1 ? null : curPage - 1,
+            nextPage: curPage === pagesNum ? null : curPage + 1,
         };
 
         return ret;

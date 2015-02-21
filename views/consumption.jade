@@ -3,6 +3,11 @@ extends layout
 block content
   include navbar
   .row
+
+    //-----------------------------------
+    //- Car Menu
+    //-----------------------------------
+
     .col-sm-2
       h4 Select your car:
       .list-group
@@ -12,6 +17,11 @@ block content
             class={active: car.active}
           )=car.reg
     .col-sm-10
+
+      //-----------------------------------
+      //- Banner - car and avg cons
+      //-----------------------------------
+
       span Fuel Consumption Log for:
       - var curCar = cars.data[cars.currentCar.id]
       h3 #{curCar.make} #{curCar.model} #{curCar.year.getFullYear()} #{curCar.engineSize} [#{curCar.reg}]
@@ -19,6 +29,11 @@ block content
         .panel-heading
           h3.panel-title Average Consumption
         .panel-body #{consumptions.avgCons}km/h #{consumptions.avgConsMpg}mpg
+
+      //-----------------------------------
+      //- Consumption table
+      //-----------------------------------
+
       table.table.table-striped
         thead
           tr
@@ -40,12 +55,28 @@ block content
               td=entry.kms
               td=entry.gallons
               td=entry.liters
+
+      //-----------------------------------
+      //- Pagination
+      //-----------------------------------
+
       nav
         ul.pagination
-          li.prev(class={disabled: !consumPagination.summary.previous})
-            a(href="?sortBy=" + consumHead.activeColumn.sortBy + "&order=" + consumHead.activeColumn.order + "&page=" + consumPagination.pagination[0].name) Prev
+          li.prev(class={disabled: !!!consumPagination.summary.prevPage})
+            if (consumPagination.summary.prevPage)
+              a(href="?sortBy=" + consumHead.activeColumn.sortBy + "&order=" + consumHead.activeColumn.order + "&page=" + consumPagination.summary.prevPage) Prev
+            else
+              span Prev
+
           each page in consumPagination.pagination
             li(class={disabled: page.disabled})
-              a(href="?sortBy=" + consumHead.activeColumn.sortBy + "&order=" + consumHead.activeColumn.order + "&page=" + page.name)= page.name
-          li.next(class={disabled: !consumPagination.summary.next})
-            a(href="?sortBy=" + consumHead.activeColumn.sortBy + "&order=" + consumHead.activeColumn.order + "&page=" + consumPagination.pagination[consumPagination.pagination.length - 1].name) Next
+              if (!page.disabled)
+                a(href="?sortBy=" + consumHead.activeColumn.sortBy + "&order=" + consumHead.activeColumn.order + "&page=" + page.name)= page.name
+              else
+                span= page.name
+
+          li.next(class={disabled: !!!consumPagination.summary.nextPage})
+            if (consumPagination.summary.nextPage)
+              a(href="?sortBy=" + consumHead.activeColumn.sortBy + "&order=" + consumHead.activeColumn.order + "&page=" + consumPagination.summary.nextPage) Next
+            else
+              span Next

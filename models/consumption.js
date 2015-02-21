@@ -44,3 +44,31 @@ consumptionSchema.pre('save', function(next) {
 });
 
 module.exports = mongoose.model('Consumption', consumptionSchema);
+
+// Testing data generator
+var testDataGenerator = {
+    dateIncr: 24 * 60 * 60 * 1000,
+    kmsIncr: 1,
+    litersIncr: 0.1,
+    source: {
+        "userEmail": "wojciech@sierakowski.eu",
+        "reg": "99w811",
+        "kms": 100,
+        "liters": 3,
+        // todays date minus year
+        "logtime": (new Date().getTime() - 365.242 * 24 * 60 * 60 * 1000)
+    },
+    generate: function(num) {
+        var ret = [];
+        for (var i = 0; i < num; i++) {
+            ret.push({
+                userEmail: this.source.userEmail,
+                reg: this.source.reg,
+                kms: this.source.kms + i * this.kmsIncr,
+                liters: this.source.liters + i * this.litersIncr,
+                logtime: new Date(this.source.logtime + i * this.dateIncr).toISOString()
+            });
+        }
+        return JSON.stringify(ret);
+    }
+};
