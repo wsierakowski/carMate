@@ -103,8 +103,8 @@ exports.consumptionGet = function(req, res, next) {
           // bit hacky way to get the reg and populate id
           _.find(userCarList, function(item, i) {
               if (item._id.toString() === req.params.id) {
-                renderData.currentCar.reg = userCar.reg;
-                renderData.currentCar.id = i;
+                renderData.cars.currentCar.reg = item.reg;
+                renderData.cars.currentCar.id = i;
                 return true;
               }
             });
