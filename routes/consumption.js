@@ -141,7 +141,6 @@ exports.consumptionGet = function(req, res, next) {
 
             var consumCount = count,
                 consumPage = req.query.page ? parseInt(req.query.page) : 1;
-            console.log('1. count', count);
 
             renderData.consumPagination = consumPaginator(consumPage, consumCount);
             // Paginator may adjust the page so read it again

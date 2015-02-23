@@ -41,7 +41,7 @@ module.exports = function(itemsPerPage, buttonsNum) {
 
     return function(curPage, totalCount) {
 
-        var i, pagesNum = Math.floor(totalCount / itemsPerPage);
+        var i, pagesNum = Math.ceil(totalCount / itemsPerPage);
 
         if (curPage > pagesNum) curPage = pagesNum;
         if (curPage < 1) curPage = 1;
