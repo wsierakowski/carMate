@@ -6,10 +6,9 @@ var http = require('http'),
     session = require('express-session'),
     mongoose = require('mongoose'),
 
-    routeApi = require('./routes/api.js'),
-    routeConsumption = require('./routes/consumption.js'),
+    conf = require('./conf.json'),
 
-    conf = require('./conf.json');
+    shared = require('./routes/shared');
 
 /*
 mongodb://username:password@host:port/database?options
@@ -51,27 +50,11 @@ if (app.get('env') === 'development') {
 app.use(bodyParser());
 app.use(cookieParser('grzybniaZPatatajnia'));
 app.use(session());
-app.use(function(req, res, next){
-    if (req.method === 'POST') {
-        routeApi.clearMessages(req, res);
-    }
-    next();
-});
 
-app.get('/', routeApi.home);
-app.get('/dashboard', routeApi.dashboard);
-app.get('/consumption', routeConsumption.consumptionGet);
-app.get('/consumption/:id', routeConsumption.consumptionGet);
+// Do we still need that?
+app.use(shared.clearMessages);
 
-app.get('/logout', routeApi.logout);
-
-app.get('/login', routeApi.loginGet);
-app.post('/login', routeApi.loginPost);
-
-app.get('/register', routeApi.registerGet);
-app.post('/register', routeApi.registerPost);
-// app.get('/jade', api.jadeGet);
-// app.get('/jadeLogin', api.jadeLogin);
+require('./routes/routes.js')(app);
 
 var port = process.argv[2] || conf.general.port;
 http

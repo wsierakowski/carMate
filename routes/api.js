@@ -119,12 +119,6 @@ exports.registerPost = function(req, res, next) {
     );
 };
 
-exports.clearMessages = function(req, res) {
-  req.session.msg = null;
-  req.session.regError = null;
-  req.session.error = null;
-};
-
 // exports.loginGet = function(req, res) {
 //     var response = '<form method="POST">' +
 //         'email: <input type="text" name="email"></br>' +

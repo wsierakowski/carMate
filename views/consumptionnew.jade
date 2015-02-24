@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  include navbar
+  .row
+
+    //-----------------------------------
+    //- Car Menu
+    //-----------------------------------
+
+    .col-sm-2
+      h4 Select your car:
+      .list-group
+        each car, i in cars.data
+          a.list-group-item(
+            href="/consumption/" + car.id,
+            class={active: car.active}
+          )=car.reg
+    .col-sm-10
+      p here will be form

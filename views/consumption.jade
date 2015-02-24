@@ -27,7 +27,8 @@ block content
         |#{curCar.make} #{curCar.model} #{curCar.year.getFullYear()}
         |#{curCar.engineSize} (#{curCar.reg})
       hr
-      a(type="button" class="btn btn-primary" href="#") Add New Consumption Record
+      a(type="button" class="btn btn-primary" href="/consumptionnew/" + curCar.id)
+        |Add New Consumption Record
       br
       br
       .panel.panel-primary
