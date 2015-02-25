@@ -208,6 +208,22 @@ exports.consumptionNewGet = function(req, res, next) {
   // TODO check what if there is no cars for that user
   renderData.cars.currentCar.reg = req.userCarsList[0].reg;
 
+  // TODO check what if there is no cars for that user
+  renderData.cars.currentCar.reg = req.userCarsList[0].reg;
+
+  // If car id was returned as a param then this car will be the current car.
+  // If car from the url param doesn't exists then stay with defaults.
+  if (req.params.usercarid) {
+    // bit hacky way to get the reg and populate id
+    _.find(req.userCarsList, function(item, i) {
+        if (item._id.toString() === req.params.usercarid) {
+          renderData.cars.currentCar.reg = item.reg;
+          renderData.cars.currentCar.id = i;
+          return true;
+        }
+      });
+  }
+
   // TODO DRY?
   renderData.cars.data = _.map(req.userCarsList, function(item, index) {
       return {

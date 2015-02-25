@@ -1,4 +1,5 @@
 var http = require('http'),
+    path = require('path'),
 
     express = require('express'),
     bodyParser = require('body-parser'),
@@ -47,6 +48,7 @@ if (app.get('env') === 'development') {
   app.locals.pretty = true;
 }
 
+app.use("/public", express.static(path.join(__dirname, 'public')));
 app.use(bodyParser());
 app.use(cookieParser('grzybniaZPatatajnia'));
 app.use(session());

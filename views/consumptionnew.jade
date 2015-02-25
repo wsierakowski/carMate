@@ -13,8 +13,78 @@ block content
       .list-group
         each car, i in cars.data
           a.list-group-item(
-            href="/consumption/" + car.id,
+            href="/consumptionnew/" + car.id,
             class={active: car.active}
           )=car.reg
     .col-sm-10
-      p here will be form
+      form
+        .panel.panel-default
+          .panel-heading
+            .panel-title Calculate Fuel Consumption
+          .panel-body
+            .row
+              .col-sm-6
+                .form-group
+                  label(for="kilometers") Kilometers
+                  input.form-control(type="number", id="kms", name="kms", placeholder="")
+                .form-group
+                  label(for="liters") Liters
+                  input.form-control(type="number", id="liters", name="liters", placeholder="")
+                .form-group
+                  label(for="lkm") Liters Per 100 kms
+                  input.form-control(type="number", id="lkm", name="lkm", placeholder="0", disabled)
+              .col-sm-6
+                .form-group
+                  label(for="miles") Miles
+                  input.form-control(type="number", id="miles", name="miles", placeholder="")
+                .form-group
+                  label(for="gallons") Gallons
+                  input.form-control(type="number", id="gallons", name="gallons", placeholder="")
+                .form-group
+                  label(for="mpg") Miles Per Gallon
+                  input.form-control(type="number", id="mpg", name="mpg", placeholder="0", disabled)
+            button.btn.btn-default(type="button") Calculate
+        button.btn.btn-primary.pull-right(type="submit") Submit
+  script(src="/public/conversions.js")
+  script.
+    var kms = document.getElementById('kms');
+    var miles = document.getElementById('miles');
+
+    kms.addEventListener('input', function() {
+      console.log('kms:['+ kms.value + ']');
+      if (kms.value === "") {
+        miles.removeAttribute('disabled');
+        miles.value = "";
+      }
+      else {
+        miles.setAttribute('disabled', false);
+        miles.value = converter.kmsToMiles(Number(kms.value));
+      }
+    });
+
+    miles.addEventListener('input', function() {
+      console.log('miles:['+ miles.value + ']');
+      if (miles.value === "") {
+        kms.removeAttribute('disabled');
+        kms.value = "";
+      }
+      else {
+        kms.setAttribute('disabled', false);
+        kms.value = converter.milesToKms(Number(miles.value));
+      }
+    });
+
+    var liters = document.getElementById('liters');
+    var gallons = document.getElementById('gallons');
+
+    liters.addEventListener('input', function() {
+      console.log('liters:['+ liters.value + ']');
+      if (liters.value === "") gallons.removeAttribute('disabled');
+      else gallons.setAttribute('disabled', false);
+    });
+
+    gallons.addEventListener('input', function() {
+      console.log('gallons:['+ gallons.value + ']');
+      if (gallons.value === "") liters.removeAttribute('disabled');
+      else liters.setAttribute('disabled', false);
+    });

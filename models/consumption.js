@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-    conv = require('../logic/conversions.js'),
+    conv = require('../public/conversions.js'),
 	Schema = mongoose.Schema,
 	ObjectId = Schema.Types.ObjectId;
 
