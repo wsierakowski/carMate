@@ -178,6 +178,8 @@ exports.consumptionGet = function(req, res, next) {
               };
           });
 
+          // TODO: This is a wrong way to calculate average as it only accounts for
+          // the returned paginated data, not all numbers. We need to use aggregate.
           renderData.consumptions.avgCons = (_.reduce(consList, function(memo, record) {
             return memo + record.consumption;
           }, 0) / consList.length).toFixed(3);
@@ -239,11 +241,10 @@ exports.consumptionNewGet = function(req, res, next) {
       };
   });
 
-  console.log('got as far as here...');
   res.render('consumptionnew', renderData);
 };
 
 exports.consumptionNewPost = function(req, res, next) {
-
-  res.send("Not implemented yet...");
+  console.log("Not implemented yet... Received this: " + JSON.stringify(req.body));
+  res.send("Not implemented yet... Received this: " + JSON.stringify(req.body));
 };
