@@ -18,6 +18,8 @@ block content
             class={active: car.active}
           )=car.reg
     .col-sm-10
+      if submitError
+        .alert.alert-danger(role="alert")= submitError.msg
       form#consumptionForm(method="POST", action="/consumptionnew/")
         input(type="hidden", name="carid", value=curCar.id)
         .panel.panel-default
@@ -28,24 +30,28 @@ block content
               .col-sm-6
                 .form-group
                   label(for="kilometers") Kilometers
+                  - var kmsval = submitError && submitError.data && submitError.data.kms ? submitError.data.kms : "";
                   input.form-control(type="number", id="kms", name="kms", placeholder="", min="0",
-                    onkeypress="return formUtils.isNumberKey(event)")
+                    value=kmsval, onkeypress="return formUtils.isNumberKey(event)")
                 .form-group
                   label(for="liters") Liters
+                  - var litersval = submitError && submitError.data && submitError.data.liters ? submitError.data.liters : "";
                   input.form-control(type="number", id="liters", name="liters", placeholder="", min="0",
-                    onkeypress="return formUtils.isNumberKey(event)")
+                    value=litersval, onkeypress="return formUtils.isNumberKey(event)")
                 .form-group
                   label(for="lpkm") Liters Per 100 kms
                   input.form-control(type="number", id="lpkm", name="lpkm", placeholder="0", disabled)
               .col-sm-6
                 .form-group
                   label(for="miles") Miles
+                  - var milesval = submitError && submitError.data && submitError.data.miles ? submitError.data.miles : "";
                   input.form-control(type="number", id="miles", name="miles", placeholder="", min="0",
-                    onkeypress="return formUtils.isNumberKey(event)")
+                    value=milesval, onkeypress="return formUtils.isNumberKey(event)")
                 .form-group
                   label(for="gallons") Gallons
+                  - var gallonsval = submitError && submitError.data && submitError.data.gallons ? submitError.data.gallons : "";
                   input.form-control(type="number", id="gallons", name="gallons", placeholder="", min="0",
-                    onkeypress="return formUtils.isNumberKey(event)")
+                    value=gallonsval, onkeypress="return formUtils.isNumberKey(event)")
                 .form-group
                   label(for="mpg") Miles Per Gallon
                   input.form-control(type="number", id="mpg", name="mpg", placeholder="0", disabled)
@@ -86,54 +92,40 @@ block content
       submitBtn.setAttribute('disabled', true);
     });
 
-    kms.addEventListener('input', function() {
-      //console.log('kms:['+ kms.value + ']');
-      calculateMileage();
-      if (kms.value === "") {
-        miles.removeAttribute('disabled');
-        miles.value = "";
+    function inputChangeHandler(source, target, convertFun) {
+      if (source.value === "") {
+        target.removeAttribute('disabled');
+        target.value = "";
       }
       else {
-        miles.setAttribute('disabled', false);
-        miles.value = converter.kmsToMiles(parseFloat(kms.value));
+        target.setAttribute('disabled', false);
+        target.value = convertFun(parseFloat(source.value));
+        console.log()
       }
-    });
+      calculateMileage();
+      console.log(source.value, target.value, ' wynik: ', convertFun(parseFloat(source.value)));
+    }
 
-    miles.addEventListener('input', function() {
-      //console.log('miles:['+ miles.value + ']');
-      calculateMileage();
-      if (miles.value === "") {
-        kms.removeAttribute('disabled');
-        kms.value = "";
-      }
-      else {
-        kms.setAttribute('disabled', false);
-        kms.value = converter.milesToKms(parseFloat(miles.value));
-      }
-    });
+    function kmsHandler() {inputChangeHandler(kms, miles, converter.kmsToMiles);}
+    function milesHandler() {inputChangeHandler(miles, kms, converter.milesToKms);}
+    function litersHandler() {inputChangeHandler(liters, gallons, converter.litersToGallons);}
+    function gallonsHandler() {inputChangeHandler(gallons, liters, converter.gallonsToLiters);}
 
-    liters.addEventListener('input', function() {
-      //console.log('liters:['+ liters.value + ']');
-      calculateMileage();
-      if (liters.value === "") {
-        gallons.removeAttribute('disabled');
-        gallons.value = "";
-      }
-      else {
-        gallons.setAttribute('disabled', false);
-        gallons.value = converter.litersToGallons(parseFloat(liters.value));
-      }
-    });
+    kms.addEventListener('input', kmsHandler);
+    miles.addEventListener('input', milesHandler);
+    liters.addEventListener('input', litersHandler);
+    gallons.addEventListener('input', gallonsHandler);
 
-    gallons.addEventListener('input', function() {
-      //console.log('gallons:['+ gallons.value + ']');
+    // We need this in case the values in input boxes were populated from the submitError
+    document.addEventListener("DOMContentLoaded", function() {
+      // First we record which elements are populated, then we set the form as if it
+      // was set with the 'input' events.
+      var funlist = [];
+      if(kms.value) funlist.push(kmsHandler);
+      if(miles.value) funlist.push(milesHandler);
+      if(liters.value) funlist.push(litersHandler);
+      if(gallons.value) funlist.push(gallonsHandler);
+      console.log('funlist:', funlist);
+      funlist.forEach(function(item) {item();});
       calculateMileage();
-      if (gallons.value === "") {
-        liters.removeAttribute('disabled');
-        liters.value = "";
-      }
-      else {
-        liters.setAttribute('disabled', false);
-        liters.value = converter.gallonsToLiters(parseFloat(gallons.value));
-      }
     });

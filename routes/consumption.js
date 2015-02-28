@@ -16,6 +16,8 @@ var _ = require('underscore'),
 var CONSUM_PER_PAGE = 10,
     CONSUM_BUTTON_NUM = 5,
 
+    ERRLOC_CONSUMPTION_NEW_POST = "ERRLOC_CONSUMPTION_NEW_POST",
+
 // Consumption table headers
     CONSUM_TABLE_HEADERS = [{
     name: "Log Time ",
@@ -226,6 +228,13 @@ exports.consumptionNewGet = function(req, res, next) {
       });
   }
 
+  if (req.session.submitError && req.session.submitError.location === ERRLOC_CONSUMPTION_NEW_POST) {
+    renderData.submitError = {};
+    renderData.submitError.data = req.session.submitError.data;
+    renderData.submitError.msg = req.session.submitError.msg;
+    req.session.submitError = null;
+  }
+
   // TODO DRY?
   renderData.cars.data = _.map(req.userCarsList, function(item, index) {
       return {
@@ -240,11 +249,22 @@ exports.consumptionNewGet = function(req, res, next) {
         active: index === renderData.cars.currentCar.id
       };
   });
-
   res.render('consumptionnew', renderData);
 };
 
 exports.consumptionNewPost = function(req, res, next) {
   console.log("Not implemented yet... Received this: " + JSON.stringify(req.body));
-  res.send("Not implemented yet... Received this: " + JSON.stringify(req.body));
+  // Form sends only these input elements that are not disabled, in our case
+  // we need only kms or miles and liters or gallons. We then calculate it again
+  // here on the server side - we don't trust calculations on the client side -
+  // they might be tampered.
+
+  // First we need to make sure the input data is correct, otherwise respond with error.
+  req.session.submitError = {};
+  req.session.submitError.location = ERRLOC_CONSUMPTION_NEW_POST;
+  req.session.submitError.msg = "Incorrect input data";
+  req.session.submitError.data = req.body;
+
+  res.redirect('/consumptionnew');
+  //res.send("Not implemented yet... Received this: " + JSON.stringify(req.body));
 };
