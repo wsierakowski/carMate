@@ -9,12 +9,16 @@ var _ = require('underscore'),
 
   navbar = require('./navbar.js'),
   strForm = require('../myutils/stringFormatter.js'),
+  conv = require('../public/conversions.js'),
 
   paginator = require('../myutils/paginator.js');
 
 // defaults
 var CONSUM_PER_PAGE = 10,
     CONSUM_BUTTON_NUM = 5,
+
+    MIN_CONSUM_VAL = 1,
+    MAX_CONSUM_VAL = 50,
 
     ERRLOC_CONSUMPTION_NEW_POST = "ERRLOC_CONSUMPTION_NEW_POST",
 
@@ -212,9 +216,6 @@ exports.consumptionNewGet = function(req, res, next) {
   // TODO check what if there is no cars for that user
   renderData.cars.currentCar.reg = req.userCarsList[0].reg;
 
-  // TODO check what if there is no cars for that user
-  renderData.cars.currentCar.reg = req.userCarsList[0].reg;
-
   // If car id was returned as a param then this car will be the current car.
   // If car from the url param doesn't exists then stay with defaults.
   if (req.params.usercarid) {
@@ -253,18 +254,77 @@ exports.consumptionNewGet = function(req, res, next) {
 };
 
 exports.consumptionNewPost = function(req, res, next) {
-  console.log("Not implemented yet... Received this: " + JSON.stringify(req.body));
+  //console.log("Received this: " + JSON.stringify(req.body));
+
   // Form sends only these input elements that are not disabled, in our case
   // we need only kms or miles and liters or gallons. We then calculate it again
   // here on the server side - we don't trust calculations on the client side -
   // they might be tampered.
 
-  // First we need to make sure the input data is correct, otherwise respond with error.
-  req.session.submitError = {};
-  req.session.submitError.location = ERRLOC_CONSUMPTION_NEW_POST;
-  req.session.submitError.msg = "Incorrect input data";
-  req.session.submitError.data = req.body;
+  // For the puprpose of this tutorial we accept the fact that we are going to do
+  // conversions here and also the same conversions in the consumptions model's
+  // pre-save functions.
 
-  res.redirect('/consumptionnew');
-  //res.send("Not implemented yet... Received this: " + JSON.stringify(req.body));
+  // First we need to make sure the input data is correct, otherwise respond with error.
+  var errMsg, kms, liters, miles, gallons, consum, car;
+  // 1. Validation if we have got all necessary input elements
+  if (!req.body.kms && !req.body.miles) {
+    errMsg = "KMs or miles are required to compute consumption.";
+  }
+
+  if (!req.body.liters && !req.body.gallons) {
+    errMsg = "Liters or gallons are required to compute consumption.";
+  }
+
+  // 2. Validation if the input elements are positive float numbers
+  if (req.body.kms) kms = parseFloat(req.body.kms);
+  else if (req.body.miles) miles = parseFloat(req.body.miles);
+  if (req.body.liters) liters = parseFloat(req.body.liters);
+  else if (req.body.miles) miles = parseFloat(req.body.miles);
+
+  if (isNaN(kms) && isNaN(miles) || isNaN(liters) && isNaN(gallons)) {
+    errMsg = "Input values must be floats.";
+  }
+
+  // 3. Validation if the calculated values are within realistic values, maybe the
+  //    user mistyped a value
+  if (miles) kms = conv.milesToKms(miles).toFixed(3);
+  if (gallons) liters = conv.gallonsToLiters(gallons).toFixed(3);
+  consum = conv.getConsumption(liters, kms).toFixed(3);
+
+  if (consum < MIN_CONSUM_VAL || consum > MAX_CONSUM_VAL) {
+    errMsg = "Your consumption seems to be a bit unrealistic: " + consum +
+    ". Are you sure you provided correct input values?";
+  }
+
+  if (!req.body.carid) {
+    errMsg = "Unknown car id.";
+  }
+
+  car = _.find(req.userCarsList, function(item) {
+    return item._id.toString() === req.body.carid;
+  });
+  if (!car) {
+    errMsg = "Incorrect car.";
+  }
+
+  if (errMsg) {
+    req.session.submitError = {};
+    req.session.submitError.location = ERRLOC_CONSUMPTION_NEW_POST;
+    req.session.submitError.msg = errMsg;
+    req.session.submitError.data = req.body;
+
+    return res.redirect('/consumptionnew');
+  }
+
+  Consumption.create({
+      kms: kms,
+      liters: liters,
+      reg: car.reg,
+      userId: req.session.user.id
+    }, function(err, consumRes) {
+
+    if (err) return next(err);
+    res.redirect('/Consumption');
+  });
 };

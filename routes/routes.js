@@ -4,13 +4,13 @@ var shared = require('./shared'),
 
 module.exports = function(app) {
     app.get('/', mainRoutes.home);
-    app.get('/dashboard', mainRoutes.dashboard);
+    app.get('/dashboard', shared.checkUser, mainRoutes.dashboard);
 
     app.get('/consumption', shared.checkUser, shared.getUserCars, consRoutes.consumptionGet);
     app.get('/consumption/:usercarid', shared.checkUser, shared.getUserCars, consRoutes.consumptionGet);
     app.get('/consumptionnew', shared.checkUser, shared.getUserCars, consRoutes.consumptionNewGet);
     app.get('/consumptionnew/:usercarid', shared.checkUser, shared.getUserCars, consRoutes.consumptionNewGet);
-    app.post('/consumptionnew', shared.checkUser, consRoutes.consumptionNewPost);
+    app.post('/consumptionnew', shared.checkUser, shared.getUserCars, consRoutes.consumptionNewPost);
 
     app.get('/logout', mainRoutes.logout);
 

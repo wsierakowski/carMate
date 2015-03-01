@@ -34,5 +34,5 @@ converter.getConsumptionMpg = function(liters, kms) {
 
 // TODO what is the official way to make a file module or not?
 if (require) {
-    exports = converter;
+    module.exports = converter;
 }

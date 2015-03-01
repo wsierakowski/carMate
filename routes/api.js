@@ -25,15 +25,10 @@ exports.home = function(req, res) {
 // };
 
 exports.dashboard = function(req, res) {
-  if (req.session.user) {
-    res.render('dashboard', {
-      name: req.session.user.name,
-      menu: navbar()
-    });
-  } else {
-    req.session.error = 'Please log in.';
-    res.redirect('/login');
-  }
+  res.render('dashboard', {
+    name: req.session.user.name,
+    menu: navbar()
+  });
 };
 
 exports.logout = function(req, res) {

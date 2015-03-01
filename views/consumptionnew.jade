@@ -18,14 +18,14 @@ block content
             class={active: car.active}
           )=car.reg
     .col-sm-10
-      if submitError
-        .alert.alert-danger(role="alert")= submitError.msg
       form#consumptionForm(method="POST", action="/consumptionnew/")
         input(type="hidden", name="carid", value=curCar.id)
         .panel.panel-default
           .panel-heading
             .panel-title Calculate Fuel Consumption
           .panel-body
+            if submitError
+              .alert.alert-danger(role="alert")= submitError.msg
             .row
               .col-sm-6
                 .form-group
@@ -55,7 +55,7 @@ block content
                 .form-group
                   label(for="mpg") Miles Per Gallon
                   input.form-control(type="number", id="mpg", name="mpg", placeholder="0", disabled)
-            button.btn.btn-default(type="reset") Clear Form
+            button.btn.btn-default#resetBtn(type="button") Clear Form
         button.btn.btn-primary.pull-right#submitBtn(type="submit", disabled) Submit
 
   //- TODO: it would be better to merge these different js files
@@ -69,6 +69,7 @@ block content
         lpkm = document.getElementById('lpkm'),
         mpg = document.getElementById('mpg'),
         form = document.getElementById('consumptionForm'),
+        resetBtn = document.getElementById('resetBtn');
         submitBtn = document.getElementById('submitBtn');
 
     var calculateMileage = function() {
@@ -84,12 +85,21 @@ block content
     }
 
     // Resetting form doesn't automatically make disabled inputs enabled
-    form.addEventListener('reset', function() {
+    resetBtn.addEventListener('click', function() {
+      // We set values here to "" as reset would reset values to the value
+      // that was assigned to the input element when it was generated.
+      // This would be a problem if after the input error we set these values - reset
+      // wouldn't make them empty.
+
+      console.log('1 kms.value', kms.value);
       kms.removeAttribute('disabled');
       miles.removeAttribute('disabled');
       liters.removeAttribute('disabled');
       gallons.removeAttribute('disabled');
       submitBtn.setAttribute('disabled', true);
+
+      kms.value = miles.value = liters.value = gallons.value = lpkm.value = mpg.value = "";
+      console.log('2 kms.value', kms.value);
     });
 
     function inputChangeHandler(source, target, convertFun) {
@@ -100,10 +110,8 @@ block content
       else {
         target.setAttribute('disabled', false);
         target.value = convertFun(parseFloat(source.value));
-        console.log()
       }
       calculateMileage();
-      console.log(source.value, target.value, ' wynik: ', convertFun(parseFloat(source.value)));
     }
 
     function kmsHandler() {inputChangeHandler(kms, miles, converter.kmsToMiles);}
@@ -125,7 +133,6 @@ block content
       if(miles.value) funlist.push(milesHandler);
       if(liters.value) funlist.push(litersHandler);
       if(gallons.value) funlist.push(gallonsHandler);
-      console.log('funlist:', funlist);
       funlist.forEach(function(item) {item();});
       calculateMileage();
     });

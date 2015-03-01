@@ -30,7 +30,7 @@ consumptionSchema.pre('save', function(next) {
     if (cons.miles && !cons.kms) cons.kms = conv.milesToKms(cons.miles);
 
     if (cons.liters && !cons.gallons) cons.gallons = conv.litersToGallons(cons.liters);
-    if (cons.gallons && !cons.liters) cons.liters = conv.litersToGallons(cons.gallons);
+    if (cons.gallons && !cons.liters) cons.liters = conv.gallonsToLiters(cons.gallons);
 
     cons.kms = cons.kms.toFixed(3);
     cons.miles = cons.miles.toFixed(3);
