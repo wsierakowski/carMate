@@ -1,6 +1,7 @@
 // http://en.wikipedia.org/wiki/Fuel_efficiency
 
 var _ = require('underscore'),
+  mongoose = require('mongoose'),
 
   UserCar = require('../models/usercar.js'),
   Car = require('../models/car.js'),
@@ -124,13 +125,15 @@ exports.consumptionGet = function(req, res, next) {
   sortObj[renderData.consumHead.activeColumn.sortBy] =
     renderData.consumHead.activeColumn.order;
 
+  var filter = {
+    reg: renderData.cars.currentCar.reg,
+    userId: req.session.user.id
+  };
+
   // One query construct, two requests.
   Consumption
     .count()
-    .where({
-      reg: renderData.cars.currentCar.reg,
-      userId: req.session.user.id
-    })
+    .where(filter)
     .exec(function(err, count) {
       if (err) return next(err);
 
@@ -143,10 +146,7 @@ exports.consumptionGet = function(req, res, next) {
 
       Consumption
         .find()
-        .where({
-          reg: renderData.cars.currentCar.reg,
-          userId: req.session.user.id
-        })
+        .where(filter)
         //ex: '{logtime: -1}' //Sort by logtime desc
         .sort(sortObj)
         //TODO: skip should be 0 or 1?
@@ -186,15 +186,43 @@ exports.consumptionGet = function(req, res, next) {
 
           // TODO: This is a wrong way to calculate average as it only accounts for
           // the returned paginated data, not all numbers. We need to use aggregate.
-          renderData.consumptions.avgCons = (_.reduce(consList, function(memo, record) {
-            return memo + record.consumption;
-          }, 0) / consList.length).toFixed(3);
+          // http://docs.mongodb.org/manual/reference/operator/aggregation/group/
+          // renderData.consumptions.avgCons = (_.reduce(consList, function(memo, record) {
+          //   return memo + record.consumption;
+          // }, 0) / consList.length).toFixed(3);
 
-          renderData.consumptions.avgConsMpg = (_.reduce(consList, function(memo, record) {
-            return memo + record.consumptionMpg;
-          }, 0) / consList.length).toFixed(3);
+          // renderData.consumptions.avgConsMpg = (_.reduce(consList, function(memo, record) {
+          //   return memo + record.consumptionMpg;
+          // }, 0) / consList.length).toFixed(3);
 
-          res.render('consumption', renderData);
+          // We do casting here as mongoose isn't doing this for us in the aggregate:
+          // http://stackoverflow.com/questions/14551387/cant-use-match-with-mongoose-and-the-aggregation-framework
+          // Also we need to use mongoose.Types.ObjectId instead of mongoose.Schema.Types.ObjectId otherwise
+          // it will not work!
+          // Example of filter object:
+          // {reg: "99W811", userId: new mongoose.Types.ObjectId("54e87f07dd248cc830c53403")}
+          filter.userId = new mongoose.Types.ObjectId(filter.userId);
+          Consumption
+            .aggregate([
+              {$match: filter},
+              {$group: {
+                _id: 0,
+                average: {$avg: "$consumption"},
+                averageMpg: {$avg: "$consumptionMpg"},
+                min: {$min: "$consumption"},
+                minMpg: {$min: "$consumptionMpg"},
+                max: {$max: "$consumption"},
+                maxMpg: {$max: "$consumptionMpg"}
+              }
+            }], function(err, aggres) {
+              if (err) return next(err);
+              console.log(aggres);
+
+              renderData.consumptions.avgCons = aggres[0].average;
+              renderData.consumptions.avgConsMpg = aggres[0].averageMpg;
+
+              res.render('consumption', renderData);
+            });
         });
     });
 };
