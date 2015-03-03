@@ -28,7 +28,7 @@ var CONSUM_PER_PAGE = 10,
     name: "Log Time ",
     sortBy: "logtime"
   }, {
-    name: "Km/100 ",
+    name: "l/100Km ",
     sortBy: "consumption"
   }, {
     name: "Mpg ",
@@ -84,7 +84,11 @@ exports.consumptionGet = function(req, res, next) {
     consumptions: {
       data: null,
       avgCons: null,
-      avgConsMpg: null
+      avgConsMpg: null,
+      minCons: null,
+      maxCons: null,
+      minConsMpg: null,
+      maxConsMpg: null
     },
 
     consumPagination: null
@@ -216,10 +220,14 @@ exports.consumptionGet = function(req, res, next) {
               }
             }], function(err, aggres) {
               if (err) return next(err);
-              console.log(aggres);
+              //console.log(aggres);
 
-              renderData.consumptions.avgCons = aggres[0].average;
-              renderData.consumptions.avgConsMpg = aggres[0].averageMpg;
+              renderData.consumptions.avgCons = aggres[0].average.toFixed(3);
+              renderData.consumptions.avgConsMpg = aggres[0].averageMpg.toFixed(3);
+              renderData.consumptions.minCons = aggres[0].min;
+              renderData.consumptions.maxCons = aggres[0].max;
+              renderData.consumptions.minConsMpg = aggres[0].minMpg;
+              renderData.consumptions.maxConsMpg = aggres[0].maxMpg;
 
               res.render('consumption', renderData);
             });
