@@ -93,69 +93,73 @@ block content
           //- Consumption table
           //-----------------------------------
 
-          table.table.table-striped
-            thead
-              tr
-                - var pageQueryParam = "&page=" + consumPagination.summary.currentPage;
-                each entry in consumHead.data
-                  th
-                    if entry.sortBy === consumHead.activeColumn.sortBy
-                      - var orderImg = (consumHead.activeColumn.order === -1 ? "-alt" : "")
-                      a(href="?sortBy=" + entry.sortBy + "&order=" + (-consumHead.activeColumn.order) + pageQueryParam)= entry.name
-                      span(class="glyphicon glyphicon-sort-by-attributes" + orderImg)
-                    else
-                      a(href="?sortBy=" + entry.sortBy + "&order=" + consumHead.defaultOrder + pageQueryParam)= entry.name
-            tbody
-              each entry, i in consumptions.data
+          if noConsumptionLogs
+            .alert.alert-warning(role="alert")
+              |You have no consumption log records.
+          else
+            table.table.table-striped
+              thead
                 tr
-                  td=entry.logtime
-                  td=entry.consumption
-                  td=entry.consumptionMpg
-                  td=entry.miles
-                  td=entry.kms
-                  td=entry.gallons
-                  td=entry.liters
+                  - var pageQueryParam = "&page=" + consumPagination.summary.currentPage;
+                  each entry in consumHead.data
+                    th
+                      if entry.sortBy === consumHead.activeColumn.sortBy
+                        - var orderImg = (consumHead.activeColumn.order === -1 ? "-alt" : "")
+                        a(href="?sortBy=" + entry.sortBy + "&order=" + (-consumHead.activeColumn.order) + pageQueryParam)= entry.name
+                        span(class="glyphicon glyphicon-sort-by-attributes" + orderImg)
+                      else
+                        a(href="?sortBy=" + entry.sortBy + "&order=" + consumHead.defaultOrder + pageQueryParam)= entry.name
+              tbody
+                each entry, i in consumptions.data
+                  tr
+                    td=entry.logtime
+                    td=entry.consumption
+                    td=entry.consumptionMpg
+                    td=entry.miles
+                    td=entry.kms
+                    td=entry.gallons
+                    td=entry.liters
 
           //-----------------------------------
           //- Pagination
           //-----------------------------------
+          if !noConsumptionLogs
+            nav
+              ul.pagination
+                - var sortQueryParams = "&sortBy=" + consumHead.activeColumn.sortBy + "&order=" + consumHead.activeColumn.order;
 
-          nav
-            ul.pagination
-              - var sortQueryParams = "&sortBy=" + consumHead.activeColumn.sortBy + "&order=" + consumHead.activeColumn.order;
-
-              - var firstPageAvailable = consumPagination.summary.currentPage != 1
-              li.first(class={disabled: !firstPageAvailable})
-                if (firstPageAvailable)
-                  a(href="?page=1" + sortQueryParams) First
-                else
-                  span First
-
-              - var prevPageAvailable = !!consumPagination.summary.prevPage
-              li.prev(class={disabled: !prevPageAvailable})
-                if (prevPageAvailable)
-                  a(href="?page=" + consumPagination.summary.prevPage + sortQueryParams) Prev
-                else
-                  span Prev
-
-              each page in consumPagination.pagination
-                li(class={disabled: page.disabled})
-                  if (!page.disabled)
-                    a(href="?page=" + page.name + sortQueryParams)= page.name
+                - var firstPageAvailable = consumPagination.summary.currentPage != 1
+                li.first(class={disabled: !firstPageAvailable})
+                  if (firstPageAvailable)
+                    a(href="?page=1" + sortQueryParams) First
                   else
-                    span
-                      strong= page.name
+                    span First
 
-              - var nextPageAvailable = !!consumPagination.summary.nextPage
-              li.next(class={disabled: !nextPageAvailable})
-                if (nextPageAvailable)
-                  a(href="?page=" + consumPagination.summary.nextPage + sortQueryParams) Next
-                else
-                  span Next
+                - var prevPageAvailable = !!consumPagination.summary.prevPage
+                li.prev(class={disabled: !prevPageAvailable})
+                  if (prevPageAvailable)
+                    a(href="?page=" + consumPagination.summary.prevPage + sortQueryParams) Prev
+                  else
+                    span Prev
 
-              - var lastPageAvailable = consumPagination.summary.currentPage != consumPagination.summary.pagesNumber
-              li.first(class={disabled: !lastPageAvailable})
-                if (lastPageAvailable)
-                  a(href="?page=" + consumPagination.summary.pagesNumber + sortQueryParams) Last
-                else
-                  span Last
+                each page in consumPagination.pagination
+                  li(class={disabled: page.disabled})
+                    if (!page.disabled)
+                      a(href="?page=" + page.name + sortQueryParams)= page.name
+                    else
+                      span
+                        strong= page.name
+
+                - var nextPageAvailable = !!consumPagination.summary.nextPage
+                li.next(class={disabled: !nextPageAvailable})
+                  if (nextPageAvailable)
+                    a(href="?page=" + consumPagination.summary.nextPage + sortQueryParams) Next
+                  else
+                    span Next
+
+                - var lastPageAvailable = consumPagination.summary.currentPage != consumPagination.summary.pagesNumber
+                li.first(class={disabled: !lastPageAvailable})
+                  if (lastPageAvailable)
+                    a(href="?page=" + consumPagination.summary.pagesNumber + sortQueryParams) Last
+                  else
+                    span Last

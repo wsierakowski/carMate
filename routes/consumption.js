@@ -56,9 +56,18 @@ exports.consumptionGet = function(req, res, next) {
   // This is what we send to render for jade.
   ////////////////////////////////////////////
 
+  // If the user doesn't have any cars then show no cars screen
+  if (req.userCarsList.length === 0) {
+    return res.render('consumptionnocars', {
+      userName: req.session.user.name,
+      menu: navbar('Consumption'),
+    });
+  }
+
   var renderData = {
     userName: req.session.user.name,
     menu: navbar('Consumption'),
+    noConsumptionLogs: false,
 
     // If there is more than just one car, the the user has a choice.
     // By default the first one return will be picked.
@@ -94,7 +103,6 @@ exports.consumptionGet = function(req, res, next) {
     consumPagination: null
   };
 
-  // TODO check what if there is no cars for that user
   renderData.cars.currentCar.reg = req.userCarsList[0].reg;
 
   // If car id was returned as a param then this car will be the current car.
@@ -148,32 +156,45 @@ exports.consumptionGet = function(req, res, next) {
       // Paginator may adjust the page so read it again
       consumPage = renderData.consumPagination.summary.currentPage;
 
+      // 3. Cars information mapping
+      renderData.cars.data = _.map(req.userCarsList, function(item, index) {
+          return {
+            id: item._id,
+            make: item.makeId.title,
+            // Finding a sub-document http://mongoosejs.com/docs/subdocs.html
+            model: item.makeId.models.id(item.modelId).title,
+            year: item.year,
+            fuelType: item.fuelType._id,
+            engineSize: item.engineSize,
+            reg: item.reg,
+            active: index === renderData.cars.currentCar.id
+          };
+      });
+
+      // if there is no consumption logs yet, there is no point displaying anything...
+      if (count === 0) {
+        renderData.consumptions.data = [];
+        renderData.consumptions.avgCons = 'n/a';
+        renderData.consumptions.avgConsMpg = 'n/a';
+        renderData.consumptions.minCons = 'n/a';
+        renderData.consumptions.maxCons = 'n/a';
+        renderData.consumptions.minConsMpg = 'n/a';
+        renderData.consumptions.maxConsMpg = 'n/a';
+        renderData.noConsumptionLogs = true;
+
+        return res.render('consumption', renderData);
+      }
+
       Consumption
         .find()
         .where(filter)
         //ex: '{logtime: -1}' //Sort by logtime desc
         .sort(sortObj)
-        //TODO: skip should be 0 or 1?
         .skip(CONSUM_PER_PAGE * (consumPage - 1))
         .limit(CONSUM_PER_PAGE)
         .exec(function(err, consList) {
 
           if (err) return next(err);
-
-          // 3. Cars information mapping
-          renderData.cars.data = _.map(req.userCarsList, function(item, index) {
-              return {
-                id: item._id,
-                make: item.makeId.title,
-                // Finding a sub-document http://mongoosejs.com/docs/subdocs.html
-                model: item.makeId.models.id(item.modelId).title,
-                year: item.year,
-                fuelType: item.fuelType._id,
-                engineSize: item.engineSize,
-                reg: item.reg,
-                active: index === renderData.cars.currentCar.id
-              };
-          });
 
           // 4. Consumption information mapping
           renderData.consumptions.data = _.map(consList, function(i) {
@@ -187,17 +208,6 @@ exports.consumptionGet = function(req, res, next) {
                 consumptionMpg: i.consumptionMpg
               };
           });
-
-          // TODO: This is a wrong way to calculate average as it only accounts for
-          // the returned paginated data, not all numbers. We need to use aggregate.
-          // http://docs.mongodb.org/manual/reference/operator/aggregation/group/
-          // renderData.consumptions.avgCons = (_.reduce(consList, function(memo, record) {
-          //   return memo + record.consumption;
-          // }, 0) / consList.length).toFixed(3);
-
-          // renderData.consumptions.avgConsMpg = (_.reduce(consList, function(memo, record) {
-          //   return memo + record.consumptionMpg;
-          // }, 0) / consList.length).toFixed(3);
 
           // We do casting here as mongoose isn't doing this for us in the aggregate:
           // http://stackoverflow.com/questions/14551387/cant-use-match-with-mongoose-and-the-aggregation-framework
